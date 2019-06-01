@@ -22,32 +22,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{Rezultatai ir išvados}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Šaltiniai}{8}
+\contentsline {section}{Santrumpos}{8}
 \defcounter {refsection}{0}\relax 
-\select@language {english}
+\contentsline {section}{\MakeUppercase {Priedai}}{8}
 \defcounter {refsection}{0}\relax 
-\select@language {lithuanian}
+\contentsline {subsection}{1 priedas.\nobreakspace {}Neuroninio tinklo struktūra}{9}
 \defcounter {refsection}{0}\relax 
-\select@language {english}
-\defcounter {refsection}{0}\relax 
-\select@language {lithuanian}
-\defcounter {refsection}{0}\relax 
-\select@language {english}
-\defcounter {refsection}{0}\relax 
-\select@language {lithuanian}
-\defcounter {refsection}{0}\relax 
-\select@language {english}
-\defcounter {refsection}{0}\relax 
-\select@language {lithuanian}
-\defcounter {refsection}{0}\relax 
-\select@language {english}
-\defcounter {refsection}{0}\relax 
-\select@language {lithuanian}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{Santrumpos}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\MakeUppercase {Priedai}}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{1 priedas.\nobreakspace {}Neuroninio tinklo struktūra}{10}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{2 priedas.\nobreakspace {}Eksperimentinio palyginimo rezultatai}{11}
+\contentsline {subsection}{2 priedas.\nobreakspace {}Eksperimentinio palyginimo rezultatai}{10}
