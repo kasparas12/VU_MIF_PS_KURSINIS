@@ -23,12 +23,11 @@
 \faculty{Matematikos ir informatikos fakultetas}
 \department{Programų sistemų katedra}
 \papertype{Kursinis darbas}
-\title{Programų sistemų kūrimo metodų tyrimas}
-\titleineng{Investigation Methods of Software Development}
-\status{3 kurso ... grupės studentas}
-\author{Vardenis Pavardenis}
-% \secondauthor{Vardonis Pavardonis}   % Pridėti antrą autorių
-\supervisor{prof. habil. dr. Vardaitis Pavardaitis}
+\title{WebAssembly panaudojamumo galimybių analizė kuriant konkurencingas naujos kartos internetines programas }
+\titleineng{WebAssembly Usability Analysis in Competitive Next-Generation Web Development}
+\status{3 kurso 5 grupės studentas}
+\author{Kasparas Taminskas}
+\supervisor{Aurimas Šimkus}
 \date{Vilnius – \the\year}
 
 % Nustatymai
@@ -46,22 +45,43 @@
 \tableofcontents
 
 \sectionnonum{Įvadas}
-Įvade apibūdinamas darbo tikslas, temos aktualumas ir siekiami rezultatai.
-Darbo įvadas neturi būti dėstymo santrauka. Įvado apimtis 1–2 puslapiai.
+Interneto naudojimo reikšmė per 30 paskutiniųjų metų nuo žiniatinklio atsiradimo išaugo 
+eksponentiškai. Nors saityno potencialas buvo pastebimas nuo pat pradžios, tačiau vargu, ar 
+kas nors XX a. IX dešimtmetyje galėjo pagalvoti, jog auganti interneto reikšmė pasieks tokį 
+lygį, jog tradicinės programų sistemos, turinčios didžiulę kodo bazę, kuriamos skirtingoms 
+fizinėms platformoms ir programinėms aplinkoms, reikalaujančios intensyvaus mašininių resursų 
+panaudojimo, bus taip pat pasiekiamos tiesiog vienu pelės paspaudimu, nepriklausys nuo 
+konkrečios mašininės architektūros, programinės aplinkos ir nereikalaus jokių specialių 
+diegimo etapų.Šiomis dienomis programinės įrangos kūrimo rinkoje internetinės technologijos ir 
+platformos, debesų kompiuterija yra įmonių dėmesio centre, nes galimybė pasiūlyti programinį 
+produktą internetu atveria didelį konkurencinį pranašumą – klientams nebereikia įsidiegti 
+programinės įrangos į savo elektroninius įrenginius, užtenka vienos programos – interneto 
+naršyklės – kuri atveria plačias galimybes naudotis skirtingų tipų programomis, pateikiamomis, 
+kaip paslauga klientui (angl. - Software as a Service). Be to, patys programų sistemų kūrėjai 
+patiria mažesnius kaštus kurdami ir palaikydami savo produktus, nes nebelieka poreikio turėti 
+skirtingų kodo bazių specifinėms operacinėms aplinkoms ar įrenginiams.
+Poreikis turėti kompleksiškas programų sistemas internetinėje erdvėje kelia didelius 
+reikalavimus pagrindiniams saityno technologijų kūrėjams – didiesiems naršyklių gamintojams – 
+kurių technologiniai sprendimai įgalina programuotojus įgyvendinti programinius sprendimus 
+internete: šios naujos kartos programos internete turi užtikrinti tokius pačius kokybinius 
+reikalavimus - greitaveiką, saugumą ir patikimumą - kaip senosios. Šioje vietoje susiduriama 
+su dideliais technologiniais naršyklių variklių implementacijos ir pagrindinės internetinių 
+technologijų programinės kalbos – JavaScript – ribojimais, neleidžiančiais įgyvendinti 
+internetinių programų visiško supanašėjimo su tradicinėmis, veikiančiomis specifinėse 
+platformose. WebAssembly standarto specfikacija ir jos formalus įgyvendinimas naršyklių 
+smėliadėžės (angl. – sandbox) aplinkose siūlo sprendimą – binarinio formato kodo vykdymą 
+greitaveikai imliose programų sistemų verslo logikos vietose papildant tradicinį JavaScript 
+kodą. Ši technologinė naujovė, apibrėžta Pasaulinio žiniatinklio konsorciumo (W3C) ir palaikoma
+ visų modernių naršyklių kūrėjų, leidžia ženkliai sumažinti likusius techninius barjerus tarp 
+ naujos kartos internetinių programų sistemų ir tradicinių, nuo vykdymo aplinkos priklausamų 
+ sprendimų, todėl atveria saityne dar neišnaudotas rinkos perspektyvas, sėkmingai gyvuojančias
+tradicinėse platformose. Šio darbo tikslas – pasiūlyti konkrečius variantus, kaip standartas 
+gali būti integruotas į naujus ir jau egzistuojančius internetinius programinius sprendimus. 
+Šie būdai leis programų sistemų kūrėjams išnaudoti stipriąsias technologijos dalis ir taip 
+įgauti didesnį konkurencinį pranašumą internetinėje programų sistemų rinkoje.
 
 \section{Medžiagos darbo tema dėstymo skyriai}
-Medžiagos darbo tema dėstymo skyriuose pateikiamos nagrinėjamos temos detalės:
-pradinė medžiaga, jos analizės ir apdorojimo metodai, sprendimų įgyvendinimas,
-gautų rezultatų apibendrinimas. Šios dalies turinys labai priklauso nuo darbo
-temos. Skyriai gali turėti poskyrius ir smulkesnes sudėtines dalis, kaip
-punktus ir papunkčius.
 
-Medžiaga turi būti dėstoma aiškiai, pateikiant argumentus. Tekstas dėstomas
-trečiuoju asmeniu, t.y. rašoma ne „aš manau“, bet „autorius mano“, „autoriaus
-nuomone“. Reikėtų vengti informacijos nesuteikiančių frazių, pvz., „...kaip jau
-buvo minėta...“, „...kaip visiems žinoma...“ ir pan., vengti grožinės literatūros
-ar publicistinio stiliaus, gausių metaforų ar panašių meninės išraiškos
-priemonių.
 
 \subsection{Poskyris}
 Citavimo pavyzdžiai: cituojamas vienas šaltinis \cite{PvzStraipsnLt}; cituojami
