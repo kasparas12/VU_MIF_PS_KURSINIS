@@ -12,11 +12,12 @@
 \usepackage{listings}
 \usepackage{subfig}
 \usepackage{wrapfig}
-
+\usepackage{parcolumns}
 \usepackage{enumitem}
 %PAKEISTA, tarpai tarp sąrašo elementų
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 \setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+\renewcommand{\lstlistingname}{Kodo ištrauka}
 
 % Titulinio aprašas
 \university{Vilniaus universitetas}
@@ -31,7 +32,7 @@
 \date{Vilnius – \the\year}
 
 % Nustatymai
-\setmainfont{Palemonas}   % Pakeisti teksto šriftą į Palemonas (turi būti įdiegtas sistemoje)
+%\setmainfont{Palemonas}   % Pakeisti teksto šriftą į Palemonas (turi būti įdiegtas sistemoje)
 \bibliography{bibliografija}
 
 \begin{document}
@@ -52,7 +53,9 @@ lygį, jog tradicinės programų sistemos, turinčios didžiulę kodo bazę, kur
 fizinėms platformoms ir programinėms aplinkoms, reikalaujančios intensyvaus mašininių resursų 
 panaudojimo, bus taip pat pasiekiamos tiesiog vienu pelės paspaudimu, nepriklausys nuo 
 konkrečios mašininės architektūros, programinės aplinkos ir nereikalaus jokių specialių 
-diegimo etapų.Šiomis dienomis programinės įrangos kūrimo rinkoje internetinės technologijos ir 
+diegimo etapų.
+
+Šiomis dienomis programinės įrangos kūrimo rinkoje internetinės technologijos ir 
 platformos, debesų kompiuterija yra įmonių dėmesio centre, nes galimybė pasiūlyti programinį 
 produktą internetu atveria didelį konkurencinį pranašumą – klientams nebereikia įsidiegti 
 programinės įrangos į savo elektroninius įrenginius, užtenka vienos programos – interneto 
@@ -60,6 +63,7 @@ naršyklės – kuri atveria plačias galimybes naudotis skirtingų tipų progra
 kaip paslauga klientui (angl. - Software as a Service). Be to, patys programų sistemų kūrėjai 
 patiria mažesnius kaštus kurdami ir palaikydami savo produktus, nes nebelieka poreikio turėti 
 skirtingų kodo bazių specifinėms operacinėms aplinkoms ar įrenginiams.
+
 Poreikis turėti kompleksiškas programų sistemas internetinėje erdvėje kelia didelius 
 reikalavimus pagrindiniams saityno technologijų kūrėjams – didiesiems naršyklių gamintojams – 
 kurių technologiniai sprendimai įgalina programuotojus įgyvendinti programinius sprendimus 
@@ -68,40 +72,76 @@ reikalavimus - greitaveiką, saugumą ir patikimumą - kaip senosios. Šioje vie
 su dideliais technologiniais naršyklių variklių implementacijos ir pagrindinės internetinių 
 technologijų programinės kalbos – JavaScript – ribojimais, neleidžiančiais įgyvendinti 
 internetinių programų visiško supanašėjimo su tradicinėmis, veikiančiomis specifinėse 
-platformose. WebAssembly standarto specfikacija ir jos formalus įgyvendinimas naršyklių 
+platformose. 
+
+WebAssembly standarto specfikacija ir jos formalus įgyvendinimas naršyklių 
 smėliadėžės (angl. – sandbox) aplinkose siūlo sprendimą – binarinio formato kodo vykdymą 
 greitaveikai imliose programų sistemų verslo logikos vietose papildant tradicinį JavaScript 
 kodą. Ši technologinė naujovė, apibrėžta Pasaulinio žiniatinklio konsorciumo (W3C) ir palaikoma
- visų modernių naršyklių kūrėjų, leidžia ženkliai sumažinti likusius techninius barjerus tarp 
- naujos kartos internetinių programų sistemų ir tradicinių, nuo vykdymo aplinkos priklausamų 
- sprendimų, todėl atveria saityne dar neišnaudotas rinkos perspektyvas, sėkmingai gyvuojančias
-tradicinėse platformose. Šio darbo tikslas – pasiūlyti konkrečius variantus, kaip standartas 
+visų modernių naršyklių kūrėjų, leidžia ženkliai sumažinti likusius techninius barjerus tarp 
+naujos kartos internetinių programų sistemų ir tradicinių, nuo vykdymo aplinkos priklausamų 
+sprendimų, todėl atveria saityne dar neišnaudotas rinkos perspektyvas, sėkmingai gyvuojančias
+tradicinėse platformose. 
+
+Šio darbo tikslas – pasiūlyti konkrečius variantus, kaip standartas 
 gali būti integruotas į naujus ir jau egzistuojančius internetinius programinius sprendimus. 
 Šie būdai leis programų sistemų kūrėjams išnaudoti stipriąsias technologijos dalis ir taip 
 įgauti didesnį konkurencinį pranašumą internetinėje programų sistemų rinkoje.
 
-\section{Medžiagos darbo tema dėstymo skyriai}
+\section{Žiniatinklio ekosistemos technologinė raida}
 
+Siekiant geriau suprasti dabartinę padėtį, kurioje buvo pristatytas WebAssembly standartas ir kokius poreikius jis patenkina, yra būtina apžvelgti viso žiniatinklio populiarumo augimą ir jo technologinę raidą.
 
-\subsection{Poskyris}
-Citavimo pavyzdžiai: cituojamas vienas šaltinis \cite{PvzStraipsnLt}; cituojami
-keli šaltiniai \cite{PvzStraipsnEn, PvzKonfLt, PvzKonfEn, PvzKnygLt, PvzKnygEn,
-PvzElPubLt, PvzElPubEn, PvzMagistrLt, PvzPhdEn}.
+\subsection{Interneto populiarumo augimas}
 
-\begin{enumerate}
-	\item Pirmas elementas
-	\item Antras elementas
-\end{enumerate}
+Interneto bendruomenę sudarančių žemės gyventojų skaičius šiuo metu viršija pusę visos Žemės populiacijos. Šis augimas, prasidėjęs 1995 metais, kai Saitynas atsivėrė plačiai pasaulio bendruomenei, nestoja ir toliau, tą galima pastebėti iš \ref{fig:internet_usage} paveikslėlyje matomos viešos metinės statistikos. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at mauris sit amet nisi vestibulum tincidunt non vel mi. Pellentesque lacinia, sapien id sollicitudin egestas, diam erat dapibus justo, a cursus arcu nunc feugiat sapien. Mauris elit lorem, egestas at nisl at, consequat tempus nisi. Aliquam congue consectetur lorem ut venenatis. Suspendisse scelerisque eros ac sapien pulvinar, id fermentum sem bibendum. Phasellus rhoncus nec tellus quis gravida. Fusce at nibh porta, sodales ipsum quis, facilisis velit. Phasellus semper laoreet magna, eget eleifend massa. Donec sollicitudin risus risus, sodales dignissim ex bibendum et. Aliquam neque lectus, posuere vitae suscipit et, hendrerit eu mauris. Integer cursus neque ex, sed molestie ex suscipit et. Phasellus eget quam id arcu tincidunt fringilla eget eu tortor. In hac habitasse platea dictumst.
+\begin{figure}[h!]
+  \includegraphics[scale=1]{interneto_naudojimo_statistika.png}
+  \caption{Interneto bendruomenės narių skaičius 1995-2018}
+  \label{fig:internet_usage}
+\end{figure}
 
-Duis porttitor placerat semper. Fusce in tristique tellus. Cras quis finibus dolor, id cursus enim. Mauris egestas feugiat porta. Donec at augue aliquet, fringilla augue eget, ullamcorper turpis. Integer id tempus risus. Ut pellentesque gravida diam, sit amet euismod libero volutpat at. Integer id rutrum neque. Vivamus a elit hendrerit, facilisis metus nec, cursus diam. Cras condimentum magna at felis suscipit, non gravida magna vestibulum. Aenean sit amet suscipit enim. Donec vitae erat molestie, convallis eros ac, faucibus magna. Duis nulla tellus, gravida eu mauris eu, commodo finibus erat. Donec venenatis erat at turpis porta, eu dignissim diam sodales. Nullam scelerisque pulvinar urna, vel laoreet purus pretium ut.
+Ši statistika tik patvirtina plataus Interneto technologijų pritaikymo poreikio aktualumą ir didelę atsakomybę, tenkančią šių technologijų vedliams - interneto naršyklių kūrėjams. Žiniatinklis jau seniai nėra skirtas tik informacijos paieškai ir dalinimuisi, ką įgalino pradinės saityno technologijos - HTTP protokolas, HTML ir CSS žymėjimo kalbos. Šiuo metu vis didesnį pagreitį įgauna virtualios realybės, žaidimų industrijos, filmų ir muzikos sferų, neuroninių tinklų kūrimo ir analizės įrankiai. Deja, bet dažnai šių sprendimų pasiūlymas Internete būna ribotas dėl fundamentalių architektūrinių principų, kuriais paremtas programinio kodo vykdymas interneto naršyklėse.
 
-Nam eget diam sit amet urna rhoncus fringilla ac quis arcu. Sed id rutrum nulla. Nulla facilisi. Donec posuere porttitor tellus, sed semper mauris rhoncus vitae. In hac habitasse platea dictumst. In vestibulum mi eget justo facilisis, eu gravida nulla consequat. Vestibulum ultrices mi a felis consectetur, eget mollis lacus mollis. Suspendisse elementum sem semper mi fermentum, vitae molestie nulla ornare. Donec lacinia, metus vel malesuada imperdiet, elit tortor dictum risus, lacinia commodo magna libero id massa. Pellentesque accumsan erat vel ex cursus, eget posuere nisl efficitur. Ut at rutrum dui. Nullam in aliquet ex, id tincidunt elit.
+\subsection{Programinio kodo vykdymas naršyklėse}
+Interneto naršyklė architektūriniu požiūriu yra itin sudėtinga programa, nes procese nuo resurso parsiuntimo iš nutolusio serverio iki jo grafinio atvaizdavimo naršyklės lange dalyvauja daug sisteminių programos komponentų, nurodytų \ref{fig:browser_architecture} paveikslėlyje. 
 
-Praesent dapibus metus dolor, nec rhoncus nunc rutrum id. Quisque quis mauris ante. Duis luctus, orci eu rutrum lobortis, purus nunc convallis diam, ut convallis orci lorem sit amet turpis. In orci sapien, lacinia nec eleifend varius, pellentesque vitae turpis. Duis aliquet elementum dui in convallis. Nunc vel diam tristique, rhoncus arcu eu, sollicitudin dui. Integer in turpis vel turpis rhoncus pretium. Quisque eget venenatis ipsum. Fusce vitae egestas magna. Ut eget elit efficitur, tristique massa vel, tincidunt sapien. Donec convallis arcu vitae libero porta placerat a ac justo. Duis lorem purus, ullamcorper luctus ultrices sit amet, porttitor in est. Donec porttitor efficitur turpis, ut rhoncus massa ullamcorper in. Proin imperdiet est eu pharetra commodo. Integer ac tempor ipsum. Vestibulum facilisis pulvinar ex, ut dignissim mauris congue tempus.
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[scale=0.8]{naršyklės_architektūra.png}
+  \end{center}
+  \caption{Aukšto lygio interneto naršyklės veikimo principas}
+  \label{fig:browser_architecture}
+\end{figure}
 
-Nullam ullamcorper libero quis mi elementum, vulputate gravida velit faucibus. Nam euismod nibh sit amet nunc pulvinar efficitur. Phasellus facilisis enim tellus, ac sollicitudin lorem semper consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean vulputate ipsum vitae est vulputate volutpat. Maecenas scelerisque elementum tincidunt. Cras ultricies hendrerit gravida. Nullam ac orci justo. Sed blandit est sit amet neque viverra, et tristique urna dapibus. Donec at ex eu mauris mollis venenatis et vitae dolor. 
+Vienas esminių šios schemos komponentų - Javascript interpretatorius - žiniatinkliui suteikia dinamiškumą ir leidžia vykdyti skriptus, parašytus Javascript programavimo kalba, tiesiog naršyklėje. Interpretatoriaus rezultatai siunčiami atvaizdavimo varikliui, kuris pasirūpina jų išdėstymu interneto aplikacijoje.
+
+\subsubsection{JavaScript kalbos savybės}
+
+Nuo pat žiniatinklio atsiradimo pradžios interneto technologijų branduolį sudaro Javascript programavimo kalba, kurios prototipas per 10 dienų buvo sukurtas 1995 metais kompanijos Netscape Communications. Ši programavimo kalba žiniatinklyje iki šiol užėmė visišką monopoliją, interneto aplikacijų klientinės dalies kūrimas be jos yra tiesiog sunkiai įsivaizduojamas atvejis. Kalbos populiarumą ir išplitimą patvirtina GitHub saugyklos repozitorijų statistiniai duomenys, pagal kuriuos kalba jau ilgą laiką pirmauja turėdama virš 320000 aktyvių repozitorijų. 
+
+\subsubsubsection{Dinaminė prigimtis}
+
+Javascript programavimo kalba pasižymi dinaminiais tipais, t.y. kintamieji savo reikšmių tipus gali keisti skripto vykdymo metu. Žemiau pateikta \ref{lst:javascript_dinamiskumas} kodo ištrauka yra visiškai validi ir leidžiama interpretatoriaus.
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}[caption={Dinaminiai tipai JavaScript kalboje}\label{lst:javascript_dinamiskumas}]
+var x = 10;                   //console.log(x) => 10
+x = "sveiki";                 //console.log(x) => sveiki
+x = {                         //console.log(x) => [Object]
+    a: "sveiki is objekto",
+    b: 10,
+    c: true
+}
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+Ši kalbos savybė leidžia programuotojams savo kodo vykdymo rezultatus stebėti itin greitai, būtent dėl to interneto technologijų bendruomenė taip ją pamėgo
+
+\subsubsection{Interpretavimo ir kompiliavimo skirtumai}
 
 \subsubsection{Skirsnis}
 \subsubsubsection{Straipsnis}

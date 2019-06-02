@@ -1,26 +1,26 @@
-Kompiuterinis ðriftas Palemonas
+Kompiuterinis ï¿½riftas Palemonas
 
 
-© Albertas Gurskas (dizainas), Ona Aleknavièienë, Laima Grumadienë, Petras Skirmantas, Mindaugas Strockis, Vladas Tumasonis
+ï¿½ Albertas Gurskas (dizainas), Ona Aleknaviï¿½ienï¿½, Laima Grumadienï¿½, Petras Skirmantas, Mindaugas Strockis, Vladas Tumasonis
 
 
 Licencijos nuostatos
 
 
-1. Palemonas yra vieðam ir privaèiam nemokamam naudojimui skirtas kompiuterinis ðriftas.
+1. Palemonas yra vieï¿½am ir privaï¿½iam nemokamam naudojimui skirtas kompiuterinis ï¿½riftas.
 
-2. Palemono uþsakovas yra Valstybinë lietuviø kalbos komisija (VLKK).
+2. Palemono uï¿½sakovas yra Valstybinï¿½ lietuviï¿½ kalbos komisija (VLKK).
 
-3. Vykdytojas yra anksèiau iðvardyta bendraautoriø grupë.
+3. Vykdytojas yra anksï¿½iau iï¿½vardyta bendraautoriï¿½ grupï¿½.
 
-4. Palemono vartotojai yra visi, kam ðitas kompiuterinis ðriftas reikalingas ir tinkamas.
+4. Palemono vartotojai yra visi, kam ï¿½itas kompiuterinis ï¿½riftas reikalingas ir tinkamas.
 
-5. Vartotojai gali Palemonà nemokamai atsisiøsti ið VLKK tinklalapio arba ásigyti kitu bûdu. Palemonà vartotojai gali ádiegti á tiek kompiuteriø, kiek reikia.
+5. Vartotojai gali Palemonï¿½ nemokamai atsisiï¿½sti iï¿½ VLKK tinklalapio arba ï¿½sigyti kitu bï¿½du. Palemonï¿½ vartotojai gali ï¿½diegti ï¿½ tiek kompiuteriï¿½, kiek reikia.
 
-6. Palemonà vartotojai gali platinti kartu su savo rinkmenomis (failais)  arba vienà patá, taèiau tik nemokamai.
+6. Palemonï¿½ vartotojai gali platinti kartu su savo rinkmenomis (failais)  arba vienï¿½ patï¿½, taï¿½iau tik nemokamai.
 
-7. Palemonà vartotojai ásidiegia ir naudoja savo nuoþiûra bei atsakomybe. Uþsakovas ir vykdytojas neatsako uþ kompiuterio gedimus, taikomosios ir sisteminës programinës árangos sutrikimus ar sunaikinimà, duomenø praradimà ar kitokius informacijos bei turto nuostolius, kuriuos bûtø galima kaip nors sieti su Palemono ádiegimu ir naudojimu kompiuteryje arba netinkamu jo naudojimu.
+7. Palemonï¿½ vartotojai ï¿½sidiegia ir naudoja savo nuoï¿½iï¿½ra bei atsakomybe. Uï¿½sakovas ir vykdytojas neatsako uï¿½ kompiuterio gedimus, taikomosios ir sisteminï¿½s programinï¿½s ï¿½rangos sutrikimus ar sunaikinimï¿½, duomenï¿½ praradimï¿½ ar kitokius informacijos bei turto nuostolius, kuriuos bï¿½tï¿½ galima kaip nors sieti su Palemono ï¿½diegimu ir naudojimu kompiuteryje arba netinkamu jo naudojimu.
 
-8. Palemono pildymu ir tobulinimu rûpinasi uþsakovas ir vykdytojas. Vartotojams draudþiama Palemonà keisti, pildyti, transformuoti ar kitaip modifikuoti. Draudþiama daryti iðvestinius ðriftus ið Palemono.
+8. Palemono pildymu ir tobulinimu rï¿½pinasi uï¿½sakovas ir vykdytojas. Vartotojams draudï¿½iama Palemonï¿½ keisti, pildyti, transformuoti ar kitaip modifikuoti. Draudï¿½iama daryti iï¿½vestinius ï¿½riftus iï¿½ Palemono.
 
 
