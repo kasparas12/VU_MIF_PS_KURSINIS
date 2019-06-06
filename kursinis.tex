@@ -14,6 +14,7 @@
 \usepackage{wrapfig}
 \usepackage{parcolumns}
 \usepackage{enumitem}
+\usepackage{array}
 %PAKEISTA, tarpai tarp sąrašo elementų
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 \setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
@@ -36,7 +37,8 @@
 \bibliography{bibliografija}
 
 \begin{document}
-	
+\lstset{language=C}
+
 % PAKEISTA	
 \maketitle
 \cleardoublepage\pagenumbering{arabic}
@@ -115,7 +117,45 @@ Interneto naršyklė architektūriniu požiūriu yra itin sudėtinga programa, n
   \label{fig:browser_architecture}
 \end{figure}
 
-Vienas esminių šios schemos komponentų - Javascript interpretatorius - žiniatinkliui suteikia dinamiškumą ir leidžia vykdyti skriptus, parašytus Javascript programavimo kalba, tiesiog naršyklėje. Interpretatoriaus rezultatai siunčiami atvaizdavimo varikliui, kuris pasirūpina jų išdėstymu interneto aplikacijoje.
+Vienas esminių šios schemos komponentų - Javascript interpretatorius - žiniatinkliui suteikia dinamiškumą ir leidžia vykdyti skriptus, parašytus Javascript programavimo kalba, tiesiog naršyklėje. Interpretatoriaus rezultatai siunčiami atvaizdavimo varikliui, kuris pasirūpina jų išdėstymu interneto aplikacijoje. Norint geriau suprasti Javascript vykdymo greitaveikos problemas, būtina apžvelgti du fundamentaliai skirtingus programinio kodo transliavimo į mašininį kodą principus.
+
+\subsubsection{Transliavimo metodai}
+Programinės kalbos dažniausiai skirstomos į statines ir dinamines, t.y. ar programiniai tipai egzistuoja kompiliavimo metu, ar yra nustatomi kodo vykdymo metu (angl. - at runtime). Keletas šioms skirtingoms šeimoms priklausančių kalbų:
+\begin{enumerate}
+    \item Statinės: C, C++
+    \item Dinaminės: Python, Rust, Javascript
+    \item Turinčios abiejų šeimų požymių: Java, C\#
+\end{enumerate}
+
+Pagal tai, kuriai šeimai kalba priklauso, skiriasi būdas, kuriuo išeities kodas yra verčiamas į mašinines tam tikros architektūros procesoriaus instrukcijas.
+
+\subsubsubsection{Kompiliavimas ir interpretavimas}
+\ref{tab:kompiliavimas_interpretavimas} Lentelėje pateikti šių transliavimo metodų skirtumai ir ypatumai, atskleidžiantys konkretaus metodo privalumus ir trūkumus tam tikrose situacijose. Būtina pažymėti, kad universalaus sprendimo, kuris variantas geresnis nėra, todėl programavimo pasaulyje derinami abu variantai.
+
+\begin{table}[H]
+  \centering
+  \caption{kompiliavimo ir interpretavimo skirtumai}
+  {\begin{tabular}{|m{13em}|m{13em}|} \hline
+     Kompiliavimo savybės & Interpretavimo savybės \\
+    \hline
+    Transliuojamas visas išeities kodas iš karto & Kodas transliuojamas dalimis 
+ sakinys po sakinio \\
+ \hline
+     Pradinis kodo analizės etapas daug greitesnis, 
+     tačiau vykdymo greitaveika lėtesnė  & Pradinė kodo analizė 
+     užima proporcingai didesnę laiko dalį, nei interpretavimo atveju, 
+     tačiau vykdymas ženkliai greitesnis  \\
+    \hline
+     Generuojamas tarpinis objektinis kodas, kuris
+ reikalauja surišimo žingsnio, papildomai naudojama atmintis & Nėra generuojama jokio tarpinio kodo \\
+ \hline
+ Programa transliuojama iki pirmos klaidos, kuomet 
+ vykdymas stabdomas, todėl programos derinimas lengvas & Klaidos pranešimas 
+ generuojamas tik atlikus pilną kodo analizę, derinimo žingsnis daug sunkesnis \\
+ \hline
+  \end{tabular}}
+  \label{tab:kompiliavimas_interpretavimas}
+\end{table}
 
 \subsubsection{JavaScript kalbos savybės}
 
@@ -139,18 +179,159 @@ x = {                         //console.log(x) => [Object]
 \end{tabular}
 \end{center}
 
-Ši kalbos savybė leidžia programuotojams savo kodo vykdymo rezultatus stebėti itin greitai, būtent dėl to interneto technologijų bendruomenė taip ją pamėgo
+Ši kalbos savybė programuotojams užtikrina lanksčias galimybes greitai ir ekspresyviai rašyti programinį kodą, kurio vykdymo pradžia yra itin greita, nes Javascript yra interpretuojama kalba. Deja, bet ši kalbos dinamiškumo savybė itin trukdo vykdyti programinį kodą, kuris imlus operacijų kiekiui, reikalauja didelės greitaveikos, nes interpretatorius privalo kiekvieną kartą tikrinti, ar vykdomas kodas turi tuos pačius tipus 
 
-\subsubsection{Interpretavimo ir kompiliavimo skirtumai}
+\subsubsection{Naršyklių gamintojų greitaveikos problemos sprendimas}
 
-\subsubsection{Skirsnis}
-\subsubsubsection{Straipsnis}
-\subsubsection{Skirsnis}
-\section{Skyrius}
-\subsection{Poskyris}
-\subsection{Poskyris}
+Didieji naršyklių gamintojai siekdami išnaudoti geriausias interpretatorių ir kompiliatorių savybes įdiegė naujus papildomus žingsnius Javascript kodo vykdymo variklyje procese. Dauguma Javascript variklių šiuo metu naudoja labai panašios architektūros kodo kompiliavimo procesus, todėl panagrinėsime vieno jų - Google kompanijos kuriamo ir palaikomo atviro kodo variklio - veikimo principus.
 
-\sectionnonum{Rezultatai ir išvados}
+\subsubsubsection{V8 variklio Javascript kodo vykdymo etapai}
+Iki 2008 metų Javascript kodo vykdymas naršyklėse buvo pastibimai lėtesnis, tačiau prasidėjus naršyklių gamintojų „greitaveikos karams" buvo įdiegti JIT (angl. - Just in Time) kompiliatoriai, kurie pastebimai padidino greitaveikos rodiklius. Šių kompiliatorių vietą Javascript kodo vykdymo grandinėje galima matyti \ref{fig:v8_pipeline} paveikslėlyje.
+
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[scale=0.8]{V8_kompiliavimo_grandinė.png}
+  \end{center}
+  \caption{Chrome naršyklėje naudojamo V8 Javascript variklio kodo vykdymo grandinė}
+  \label{fig:v8_pipeline}
+\end{figure}
+
+\section{WebAssembly standarto specifikacija}
+
+WebAssembly yra standartų rinkinys, sukurtas ir palaikomas Pasaulio žiniatinklio konsorciumo (angl. - World Wide Web Consorcium), apibrėžiantis koncepcinį žemo lygio mašinio kodo formatą, į kurį gali būti verčiamos aukšto lygio programavimo kalbos.
+
+\subsection{Programavimo kalbos ypatybės}
+WebAssembly yra žemo lygio, statinė programavimo kalba, turinti vos keletą kintamųjų tipų:
+
+\begin{itemize}
+    \item Sveikojo skaičiaus: i32, i64
+    \item Slankaus kablelio: f32, f64
+\end{itemize}
+
+Lyginant šią kalbą su JavaScript, kuri yra dinaminė, aukšto lygio, galima pastebėti, jog nėra tokios įvairovės ir lankstumo - jokių eilučių tipų, masyvų, objektų. Funkcijų parametrų ir grįžimo reikšmės privalo būti griežtai deklaruotos ir apribrėžtos. Taip pat WebAssembly specifikacijoje apibrėžti statiniai užvardinti funkcijų importavimai ir eksportavimai.
+
+
+\subsection{Koncepcinio mašininio kodo vykdymas}
+WebAssembly mašininis kodas skirtas vykdyti steko pagrindu veikiančioms virtualioms mašinoms. Virtuali mašina yra aukšto lygio abstrakcijos sluoksnis, leidžiantis programinį kodą vykdyti skirtingose operacinėse sistemose ir fizinėse architektūrose, todėl WebAssembly mašininį kodą lyginti su tradiciniu konkrečios fizinės architektūros mašininiu kodu būtų neteisinga. Supaprastinta WebAssembly programinio kodo vertimo į konkrečią fizinę architekūrą schema pateikta \ref{fig:wasm_compilation} paveikslėlyje. Programinės kalbos dažnai turi tarpines kodo išraiškas (angl. - Intermediate Representation), skirtas programinį kodą versti į konkrečios fizinės architektūros mašinininį kodą. WebAssembly mašininis kodas sugeba priimti šį tarpinį formatą, naršyklių implementacijos sugeba atlikti Wasm kodo transliavimą į konkrečią fizinę architektūrą be sudėtingų ir laikui imlių žingsnių. 
+
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[scale=0.8]{webassembly_kompiliavimas.png}
+  \end{center}
+  \caption{.wasm kodo kompiliavimas}
+  \label{fig:wasm_compilation}
+\end{figure}
+
+\subsection{Virtualios mašinos implementacija}
+
+WebAssembly formatas sukurtas steko pagrindu veikiančiai mašinai - tai specialus virtualios mašinos implementacijos atvejis, kai aritmetiniai ir loginiai operandai ir operacijų rezultatai saugomi steko pagrindo duomenų struktūroje, o išėmimo ir įdėjimo tvarka grįsta LIFO (angl. - Last-in First-out) principu. 
+
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[scale=0.62]{sudėtis_steke.png}
+  \end{center}
+  \caption{Sudėtis steke}
+  \label{fig:stack_addition}
+\end{figure}
+
+Šis virtualios mašinos implementacijos būdas užtikrina efektyvią greitaveiką, nes nereikia išreikštinai žinoti operandų atminties adresų - naudojama steko viršūnės rodyklė (angl. - Stack Pointer), o kiekiena įdėjimo/išėjimo operacija pakeičia šios rodyklės reikšmę vienetu.
+Kaip matome \ref{fig:stack_addition} paveikslėlyje, paprastai sudėties operacijai steko implementacijos atveju reikia keturių komandų. Egzistuoja registrais grįsta virtualio mašinos realizacija, kurioje sudėtis gali būti išreiškiama viena operacija, tačiau tokiu atveju reikia nurodyti ir žinoti registrų adresus. Neteisinga teigti, jog viena implementacija universaliu atveju geresnė už kitą, efektyvumą lemia naudojimo kontekstas.
+
+\section{WebAssembly panaudojamumo būdai}
+Standarto panaudojimo galimybes kuriant interneto programas galima skirstyti pagal pritaikymo skalę - kokį proporcinį visos programos kiekio dalį užima WebAssembly kodo bazė.
+
+\subsection{Modulio integracija į egzistuojantį JavaScript projektą}
+Dar iki WebAssembly standarto atsiradimo, nuo ECMAScript2015 standarto specifikacijos išleidimo, JavaScript ekosistema tapo daug moduliaresnė, nei buvo prieš tai. Ši technologinė savybė leidžia enkapsuliuoti realizacijos logiką, o klientui pateikti tik ribotą programinę sąsają (angl. - Application Programming Interface), skirtą naudotis paketu ar moduliu. WebAssembly standartas kuriamas atsižvelgiant į modulių naudą ir poreikį.
+
+\subsubsection{Problemos apibrėžimas}
+Sakykime, jog turime realizavę internetinę programą, kurios esminė verslo logikos dalis atlieka procesoriaus ar vaizdo plokštės darbo laikui imlias operacijas. Mūsų klientai džiaugiasi, jog esame pirmieji realizavę tokio tipo sistemą internete, tačiau skundžiasi, jog darbas su sistema nėra sklandus, juntamas dažnas uždelsimas. Tokių sistemų pavyzdžiai galėtų būti vaizdo, garso kodavimo ir apdorojimo programos, papildytos realybės (angl. - Augmented Reality) sprendimai, dirbtinio intelekto sistemos. 
+\subsubsection{Sprendimas}
+Galima bandyti susidariusią problemą spręsti pertvarkant egzistuojantį centrinį verslo logikos algoritmą, parašytą JavaScript programavimo kalba ir stebint greitaveikos rodiklius, tačiau anksčiau ar vėliau neabejotinai bus pasiekta riba, kurios peržengti su esama technologija nebus įmanoma, nes pati kalba nesuteikia prieigos prie žemų programinių konstruktų, tokių kaip savarankiškas ir efektyvus atminties išskyrimas ir valdymas. 
+\subsubsubsection{WebAssembly integracija}
+Šioje vietoje atsiranda galimybė panaudoti enkapsuliuotą WebAssembly modulį, kuris savyje turėtų realizuotą centrinį skaičiavimų logikos algoritmą. Jeigu mūsų internetinės programų sistemos sprendimas kilo iš jau anksčiau egzistavusios darbalaukinės programos, didelė galimybė, jog mums net nereikės perrašinėti jokios verslo logikos kita kalba. Sakykime, jog savo algoritmą rašome C kalba, imituokime mūsų verslo logikos algoritmą realizuodami Burbulo metodo (angl. - Bubble Sort) rikiavimo funkciją:
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}[basicstyle=\small, caption={Burbulo metodo rikiavimas C kalba}\label{lst:bubble_sort}]
+int8_t* EMSCRIPTEN_KEEPALIVE bubbleSort(int8_t *buf, int n) {
+    for (int i=0; i<n-1;i++) {
+        for (int j=0;j<n-i-1;j++) {
+            if (buf[j]>buf[j+1]) {
+                swap(&buf[j], &buf[j+1]);
+            }
+        }
+    }
+    return buf;
+}
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+Verta paminėti, jog EMSCRIPTEN\_KEEPALIVE direktyva nurodo, jog šią funkciją reikia įtraukti į WebAssembly eksportuojamų funkcijų sąrašą, tuomet ją bus galima kviesti tiesiai iš JavaScript kodo. 
+
+Kai jau turime parašę savo centrinį verslo logikos algoritmą, esminis žingsnis - šį išeities kodą paversti binariniu .wasm formato moduliu, kurį galėtume importuoti naršyklėse. Patogiausias ir plačiausiai taikomas rinkoje įrankis - Emscripten atviro kodo kompiliatorius. Savo darbalaukinėje sistemoje sudiegę šį įrankį, komandinėje eilutėje galime iškviesti kompiliavimo komandą:
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}[basicstyle=\small, caption={Emscripten kompiliavimo komanda}\label{lst:emscripten_compile}]
+emcc bubble_sort.c -s WASM=1 -s EXPORTED_FUNCTIONS="['_bubbleSort']" 
+-s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall','cwrap']"
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+Kompiliavimo komandos sintaksė skiriasi priklausomai nuo naudojamos operacinės sistemos, šiuo atveju buvo naudojama Windows 10 operacinė sistema ir jos komandinė eilutė.
+
+Įvykdžius \ref{lst:emscripten_compile} kodo išraukoje nurodytą komandą įrankis sugeneruoja .wasm modulį ir .js failą, kuris skirtas inicijuoti WebAssembly modulio vykdymą naršyklėje. Naršyklių gamintojai teigia, jog planuose yra patogesnis .wasm modulio integravimas taikant tradicinį modulių importavimo požiūrį: \lstinline[columns=fixed]{<script type="module"></script>}. Deja, tačiau rašymo metu ši galimybė dar neegzistuoja, todėl modulio užkrovimas naršyklėje reikalauja gana didelio kiekio .js kodo, kurį sugeneruoja minėtasis Emscripten įrankis.
+
+Šiame pavyzdyje C funkcijai iš JavaScript kodo turime perduoti masyvą ir jo elementų ilgį, kad galėtume per jį iteruoti. Kol kas tiesioginis parametrų perdavimas galimas tik su primityviaisiais skaitiniais tipais, jeigu norime perduoti masyvą, turime pasitelkti piramidės struktūrą (angl. - Heap). 
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[scale=0.7]{wasm_heap.png}
+  \end{center}
+  \caption{Komunikacija naudojant piramidės atmintį}
+  \label{fig:wasm_stack}
+\end{figure}
+Ši atminties sritis WebAssembly standarte yra tiesiog paprastas JavaScript objektas, kuris imituoja tradicinę C/C++ kalbų piramidės duomenų struktūrą, nes pastarosios pasiekti dėl saugumo priežasčių programuotojai galimybės neturi. 
+Sudėtingų tipų perdavimą tarp JavaScript kodo ir WebAssembly modulio galima pavaizduoti \ref{fig:wasm_stack} paveikslėlyje nurodyta schema, kurioje matosi, jog komunikacija tarp aplinkų vyksta netiesiogiai, žiūrint į bendrą atminties sritį.
+
+Svarbu paminėti, jog negalime į piramidę tiesiogiai patalpinti apibrėžto JavaScript masyvo, turime jį paversti į tipizuotą masyvo tipą, atitinkantį konkretaus tipo piramidę, nes vieno tipo piramidėje negalima laikyti skirtingo tipo duomenų - kitu atveju bus gaunami netikėti ir nesąmoningi rezultatai. 
+
+Taigi, turėdami sukompiliuotą modulį ir jį iškviečiantį sugeneruotą surišantįjį JavaScript kodą, galime bandyti iškviesti aprašytą C rikiavimo funkciją iš naršyklės. Šiam tikslui naudojame integruotas WebAssembly standarto realizacijos \lstinline[columns=fixed]{Module.ccall() ir Module.cwrap()} funkcijas, leidžiančias perduoti parametrus į WebAssembly modulį ir grąžinti rezultatą į JavaScript aplinką atgal. Šiame pavyzdyje naudojame \lstinline[columns=fixed]{wasm-arrays.js} atviro kodo biblioteką, patalpintą GitHub saugykloje, kuri suteikia papildomą ccall ir cwrap funkcijų abstrakcijos lygmenį, skirtą patogesniam naudojimui. Taigi, naršyklės kode galime iškviesti mūsų rikiavimo funkciją perduodami skaičių masyvą:
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}[basicstyle=\small, caption={C funkcijos iškvietimas JavaScript aplinkoje}\label{lst:c_call}]
+        const res = ccallArrays(
+          "bubbleSort",
+          "array",
+          ["array"],
+          [[2, 1, 13, 4, 50]],
+          { heapIn: "HEAP8", heapOut: "HEAP8", returnArraySize: 5 }
+        );
+        console.log(res);
+\end{lstlisting}
+\end{tabular}
+\end{center}
+Pirmuoju parametru nurodome kviečiamą funkciją, antrasis parametras apibrėžia iš kviečiamos funkcijos grįžtantijį tipą, trečias ir ketvirtas - perduodamų parametrų tipus ir reikšmes, penktasis parametras - perduodamas objektas - apibrėžia jog naudosime WebAssembly HEAP8 (baito dydžio) sveikųjų skaičių piramidės atminties sritį. Įvykdžius \lstinline[columns=fixed]{ccallArrays} funkciją rezultato kintamasis \lstinline[columns=fixed]{res} gauna \lstinline[columns=fixed]{int8_t} tipo rodyklę, būtent tokio tipo, kokį apibrėžėme C funkcijoje. Ši rodyklė rodo į surikiuoto masyvo pradžios atminties sritį, todėl JavaScript kode galime pasiekti pakeistąjį masyvą. Našyklės konsolėje stebimas paveikslėjyje matomas kvietimo rezultatas.
+
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[scale=0.7]{sorted_array.png}
+  \end{center}
+  \caption{Rezultatas naršyklės konsolės lange}
+  \label{fig:sorted_array}
+\end{figure}
+
+Tagi, šiame pavyzdyje sugebėjome realizuoti logikos algoritmą C programavimo kalba, jį sukompiliuoti į WebAssembly modulį ir iškviesti JavaScript kode. Ši situacija parodo, jog WebAssembly standarto moduliarumo savybė leidžia skaičiavimams jautrias logikos sritis perkelti iš JavaScript kodo į WebAssembly modulius. Būtent todėl WebAssembly standartas ne pakeičia, o papildo JavaScript veikimą ten, kur pokytis atrodo racionalus ir reikalingas.
+
+\subsubsection{Realaus pasaulio scenarijai}
+
+Aprašytasis pavyzdys tik vaizdžiai parodo, kaip galima WebAssembly integruoti į egzistuojančią interneto sistemą pagerinant greitaveikos roduklius. Taikant šį principą rinkoje galima paspartinti jau egzistuojančius sprendimus.
+
+Vienas tokių atvejų galėtų būti ReactJS biblioteka, skirta kurti klientiniam interneto kodui. Esminis šios bibliotekos suderinimo (angl. - Reconciliation) algoritmas, skirtas efektyviai perpiešti DOM medį ir pastebėti, kurie šio medžio lapai pakeitė būseną, galėtų būti pakeistas WebAssembly realizacijos kodu išlaikant tokį patį programinį kontraktą React bibliotekos naudojams (angl. - API). Tokiu atveju vienintelis pokytis, kurį pajustų naudotojai - išaugusi bibliotekos veikimo sparta .
+
+Kitas pavyzdys, kuris rinkoje jau implementuotas - kompanijos eBay programuotojų komandos sukurta internetinė brūkšninio kodo nuskaitymo programa, skirta eBay aukciono pardavėjams įkelti savo parduodamas prekes. Šis įrankis eBay programuotojų buvo sukurtas C++ kalba ir sėkmingai veikė iOS ir Android mobiliose aplinkose. Atsiradus WebAssembly technologijos realizacijai interneto naršyklėse, eBay programuotojai egzistuojančią kodo bazę sukompiliavo į .wasm modulį, rezultatas buvo stebinantis - lyginant su anksčiau veikusiu JavaScript brūkšninio kodo nuskaitymo įrankiu, kuris veikdavo vieno kadro per sekundę režimu, WebAssembly realizacija leido pasiekti 50 kartų didesnę greitaveiką.
+\sectionnonum{Rez ultatai ir išvados}
 Rezultatų ir išvadų dalyje turi būti aiškiai išdėstomi pagrindiniai darbo
 rezultatai (kažkas išanalizuota, kažkas sukurta, kažkas įdiegta) ir pateikiamos
 išvados (daromi nagrinėtų problemų sprendimo metodų palyginimai, teikiamos
