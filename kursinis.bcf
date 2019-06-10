@@ -2052,16 +2052,28 @@
     <bcf:datasource type="file" datatype="bibtex">bibliografija.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">PvzStraipsnLt</bcf:citekey>
-    <bcf:citekey order="2">PvzStraipsnEn</bcf:citekey>
-    <bcf:citekey order="2">PvzKonfLt</bcf:citekey>
-    <bcf:citekey order="2">PvzKonfEn</bcf:citekey>
-    <bcf:citekey order="2">PvzKnygLt</bcf:citekey>
-    <bcf:citekey order="2">PvzKnygEn</bcf:citekey>
-    <bcf:citekey order="2">PvzElPubLt</bcf:citekey>
-    <bcf:citekey order="2">PvzElPubEn</bcf:citekey>
-    <bcf:citekey order="2">PvzMagistrLt</bcf:citekey>
-    <bcf:citekey order="2">PvzPhdEn</bcf:citekey>
+    <bcf:citekey order="1">IWS19</bcf:citekey>
+    <bcf:citekey order="2">IWS19</bcf:citekey>
+    <bcf:citekey order="3">MOR17</bcf:citekey>
+    <bcf:citekey order="4">PRO19</bcf:citekey>
+    <bcf:citekey order="5">PRO19</bcf:citekey>
+    <bcf:citekey order="6">GIT19</bcf:citekey>
+    <bcf:citekey order="7">LCW17</bcf:citekey>
+    <bcf:citekey order="8">DAC17</bcf:citekey>
+    <bcf:citekey order="9">HNO19</bcf:citekey>
+    <bcf:citekey order="10">HNO19</bcf:citekey>
+    <bcf:citekey order="11">WVE17</bcf:citekey>
+    <bcf:citekey order="12">WAS17</bcf:citekey>
+    <bcf:citekey order="13">DAC17</bcf:citekey>
+    <bcf:citekey order="14">LCW17</bcf:citekey>
+    <bcf:citekey order="15">LCW17</bcf:citekey>
+    <bcf:citekey order="16">MSS12</bcf:citekey>
+    <bcf:citekey order="17">EMD17</bcf:citekey>
+    <bcf:citekey order="18">WAA19</bcf:citekey>
+    <bcf:citekey order="19">NHT19</bcf:citekey>
+    <bcf:citekey order="20">BLZ19</bcf:citekey>
+    <bcf:citekey order="21">BLZ19</bcf:citekey>
+    <bcf:citekey order="22">BLZ19</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="anyt/global" type="entry" sortscheme="anyt" sortnamekeyscheme="global">
   <bcf:sorting>
