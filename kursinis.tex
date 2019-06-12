@@ -25,11 +25,11 @@
 \faculty{Matematikos ir informatikos fakultetas}
 \department{Programų sistemų katedra}
 \papertype{Kursinis darbas}
-\title{WebAssembly panaudojamumo galimybių analizė kuriant konkurencingas naujos kartos internetines programas }
-\titleineng{WebAssembly Usability Analysis in Competitive Next-Generation Web Development}
+\title{WebAssembly panaudojamumo galimybių analizė kuriant internetines programas }
+\titleineng{WebAssembly Usability Analysis in Web Development}
 \status{3 kurso 5 grupės studentas}
 \author{Kasparas Taminskas}
-\supervisor{Aurimas Šimkus}
+\supervisor{Lekt. Aurimas Šimkus}
 \date{Vilnius – \the\year}
 
 % Nustatymai
@@ -48,11 +48,11 @@
 \tableofcontents
 
 \sectionnonum{Anotacija}
-WebAssembly technologija — sėkmingai moderniose interneto naršyklėse realizuotas naujų, atvirų žiniatinklio standartų rinkinys, suteikiantis iki šiol neregėtus greitaveikos rodiklius ir naujas programavimo galimybes žiniatinklyje. Nepaisant to, technologija kol kas išlieka tik pradiniuose vystymo etapuose, plati žiniatinklio programuotojų bendruomenė tik pradeda susipažinti su jos galimybėmis. Dėl standarto naujovės dažnai pasigirsta tam tikrų mitų ar skambių pareiškimų, tokių kaip JavaScript kalbos gyvavimo pabaiga. Šiuo rašto darbu siekiama atskleisti technologijos paskirtį, apžvelgti jos atsiradimo prielaidas ir išanalizuoti pritaikymo galimybes tose situacijose, kuriose jos atrodo prasmingos. Įgyvendinus šiuos siekius bus galima sugriauti minėtus mitus ir neteisingas spėliones.
+WebAssembly technologija — sėkmingai moderniose interneto naršyklėse realizuotas naujų, atvirų žiniatinklio standartų rinkinys, suteikiantis iki šiol neregėtus greitaveikos rodiklius ir naujas programavimo galimybes žiniatinklyje. Nepaisant to, technologija kol kas išlieka tik pradiniuose vystymo etapuose, plati žiniatinklio programuotojų bendruomenė tik pradeda susipažinti su jos galimybėmis. Dėl standarto naujovės dažnai pasigirsta tam tikrų mitų ar skambių pareiškimų, tokių kaip JavaScript kalbos gyvavimo pabaiga. Šiuo rašto darbu siekiama apžvelgti technologijos atsiradimo prielaidas, atskleisti jos paskirtį ir išanalizuoti pritaikymo galimybes tose situacijose, kuriose jos atrodo prasmingos. Įgyvendinus šiuos siekius, tikiu, pavyks sugriauti minėtas vyraujančias spekuliacijas apie šį naują standartą.
 
 \sectionnonum{Įvadas}
 Interneto naudojimo reikšmė per 30 paskutiniųjų metų nuo žiniatinklio atsiradimo išaugo 
-eksponentiškai. Nors saityno potencialas buvo pastebimas nuo pat pradžios, tačiau vargu, ar 
+eksponentiškai. Nors saityno potencialas buvo pastebimas nuo pat jo atsiradimo ir taikymo pradžios, tačiau vargu, ar 
 kas nors XX a. IX dešimtmetyje galėjo pagalvoti, jog auganti interneto reikšmė pasieks tokį 
 lygį, jog tradicinės programų sistemos, turinčios didžiulę kodo bazę, kuriamos skirtingoms 
 fizinėms platformoms ir programinėms aplinkoms, reikalaujančios intensyvaus mašininių resursų 
@@ -91,11 +91,13 @@ tradicinėse platformose.
 \sectionnonum{Tikslas ir uždaviniai}
 Šio rašto darbo tikslas – pasiūlyti konkrečius praktinius variantus, kaip standartas 
 gali būti integruotas į naujus ir jau egzistuojančius internetinius programinius sprendimus. 
-Šie būdai leis programų sistemų kūrėjams išnaudoti stipriąsias technologijos dalis ir taip 
-įgauti didesnį konkurencinį pranašumą internetinėje programų sistemų rinkoje. Pagrindiniai tarpiniai rašto darbo uždaviniai, padedantys įgyvendinti užsibrėžtą tikslą:
+Šie būdai leis programų sistemų kūrėjams išnaudoti stipriąsias technologijos puses ir taip 
+įgauti didesnį konkurencinį pranašumą internetinėje programų sistemų rinkoje kuriant unikalias, nauju standartu paremtas programas ir tokiu būdu susikurti naują rinkos erdvę ar ją išplėsti. 
+
+Pagrindiniai tarpiniai rašto darbo uždaviniai, padedantys atskleisti standarto esmę ir įgyvendinti užsibrėžtą tikslą:
 \begin{itemize}
-    \item Prielaidų, paskatinusių WebAssembly technologijai atsirasti, analizė
-    \item WebAssembly koncepcinės veikimo logikos suvokimas
+    \item Prielaidų, paskatinusių WebAssembly standartų rinkinį atsirasti, analizė
+    \item WebAssembly standarto koncepcinės veikimo logikos suvokimas
     \item Skirtingų WebAssembly pritaikymo galimybių paieška
 \end{itemize}
 
@@ -105,7 +107,7 @@ Siekiant geriau suprasti dabartinę padėtį, kurioje buvo pristatytas WebAssemb
 
 \subsection{Interneto populiarumo augimas}
 
-Interneto bendruomenę sudarančių žemės gyventojų skaičius šiuo metu viršija pusę visos Žemės populiacijos. Šis augimas, prasidėjęs 1995 metais, kai Saitynas atsivėrė plačiai pasaulio bendruomenei, nesustoja ir toliau, tą galima pastebėti iš \ref{fig:internet_usage} paveikslėlyje matomos viešos metinės statistikos.
+Interneto bendruomenę sudarančių Žemės gyventojų skaičius šiuo metu viršija pusę visos Žemės populiacijos. Šis augimas, prasidėjęs 1995 metais, kai Saitynas atsivėrė plačiai pasaulio bendruomenei, nesustoja ir toliau, tą galima pastebėti iš \ref{fig:internet_usage} paveikslėlyje matomos viešos metinės statistikos.
 
 \begin{figure}[h!]
   \includegraphics[scale=1]{interneto_naudojimo_statistika.png}
@@ -122,24 +124,22 @@ Interneto naršyklė architektūriniu požiūriu yra itin sudėtinga programa, n
   \begin{center}
   \includegraphics[scale=1]{naršyklės_architektūra.png}
   \end{center}
-  \caption{Aukšto lygio interneto naršyklės veikimo principas}
+  \caption{Aukšto lygio interneto naršyklės veikimo principas \cite{MOR17}}
   \label{fig:browser_architecture}
 \end{figure}
 
-Vienas esminių šios schemos komponentų — Javascript interpretatorius — žiniatinkliui suteikia dinamiškumą ir leidžia vykdyti skriptus, parašytus Javascript programavimo kalba, tiesiog naršyklėje. Interpretatoriaus rezultatai siunčiami atvaizdavimo varikliui, kuris pasirūpina jų išdėstymu interneto aplikacijoje. \cite{MOR17} Norint geriau suprasti JavaScript vykdymo greitaveikos problemas, būtina apžvelgti du fundamentaliai skirtingus programinio kodo transliavimo į mašininį kodą principus.
+Vienas esminių šios schemos komponentų — JavaScript interpretatorius — žiniatinkliui suteikia dinamiškumą ir leidžia vykdyti skriptus, parašytus JavaScript programavimo kalba, tiesiog naršyklėje. Interpretatoriaus rezultatai siunčiami atvaizdavimo varikliui, kuris pasirūpina jų išdėstymu interneto programoje. \cite{MOR17} Norint geriau suprasti JavaScript vykdymo greitaveikos problemas, būtina suvokti interpretavimo trūkumus, todėl apžvelgsime du fundamentaliai skirtingus programinio kodo transliavimo į mašininį kodą principus.
 
 \subsubsection{Transliavimo metodai}
-Programinės kalbos dažniausiai skirstomos į statines ir dinamines, t.y. ar programiniai tipai egzistuoja kompiliavimo metu, ar yra nustatomi kodo vykdymo metu (angl. — at runtime). Keletas šioms skirtingoms šeimoms priklausančių kalbų:
+Programinės kalbos dažniausiai skirstomos į statines ir dinamines, t.y. ar programiniai tipai egzistuoja kompiliavimo metu, ar yra nustatomi kodo vykdymo metu. Keletas šioms skirtingoms šeimoms priklausančių kalbų:
 \begin{enumerate}
     \item Statinės: C, C++
-    \item Dinaminės: Python, Rust, Javascript
+    \item Dinaminės: Python, Rust, JavaScript
     \item Turinčios abejų šeimų požymių: Java, C\#
-\end{enumerate}
-
-Pagal tai, kuriai šeimai kalba priklauso, skiriasi būdas, kuriuo išeities kodas yra verčiamas į mašinines tam tikros architektūros procesoriaus instrukcijas.
+\end{enumerate} Pagal tai, kuriai šeimai kalba priklauso, skiriasi būdas, kuriuo išeities kodas yra verčiamas į mašinines tam tikros architektūros procesoriaus instrukcijas.
 
 \subsubsubsection{Kompiliavimas ir interpretavimas}
-\ref{tab:kompiliavimas_interpretavimas} lentelėje pateikti šių transliavimo metodų skirtumai ir ypatumai, atskleidžiantys konkretaus metodo privalumus ir trūkumus tam tikrose situacijose. Būtina pažymėti, kad universalaus sprendimo, kuris variantas geresnis nėra, todėl programavimo pasaulyje derinami abu variantai.
+\ref{tab:kompiliavimas_interpretavimas} lentelėje pateikti šių transliavimo metodų skirtumai ir ypatumai, atskleidžiantys konkretaus metodo privalumus ir trūkumus tam tikrose situacijose. Būtina pažymėti, kad universalaus sprendimo, kuris variantas geresnis, nėra, todėl programavimo pasaulyje derinami abu variantai.
 
 \begin{table}[H]
   \centering
@@ -150,17 +150,19 @@ Pagal tai, kuriai šeimai kalba priklauso, skiriasi būdas, kuriuo išeities kod
     Transliuojamas visas išeities kodas iš karto & Kodas transliuojamas dalimis 
  sakinys po sakinio \\
  \hline
-     Pradinis kodo analizės etapas daug greitesnis, 
-     tačiau vykdymo greitaveika lėtesnė  & Pradinė kodo analizė 
+ Pradinė kodo analizė 
      užima proporcingai didesnę laiko dalį, nei interpretavimo atveju, 
-     tačiau vykdymas ženkliai greitesnis  \\
+     tačiau vykdymas ženkliai greitesnis &
+     Pradinis kodo analizės etapas daug greitesnis, 
+     tačiau vykdymo greitaveika lėtesnė   \\
     \hline
      Generuojamas tarpinis objektinis kodas, kuris
  reikalauja surišimo žingsnio, papildomai naudojama atmintis & Nėra generuojama jokio tarpinio kodo \\
  \hline
+ Klaidos pranešimas 
+ generuojamas tik atlikus pilną kodo analizę, derinimo žingsnis daug sunkesnis &
  Programa transliuojama iki pirmos klaidos, kuomet 
- vykdymas stabdomas, todėl programos derinimas lengvas & Klaidos pranešimas 
- generuojamas tik atlikus pilną kodo analizę, derinimo žingsnis daug sunkesnis \\
+ vykdymas stabdomas, todėl programos derinimas lengvas  \\
  \hline
   \end{tabular}}
   \label{tab:kompiliavimas_interpretavimas}
@@ -168,7 +170,7 @@ Pagal tai, kuriai šeimai kalba priklauso, skiriasi būdas, kuriuo išeities kod
 
 \subsubsection{JavaScript kalbos savybės}
 
-Nuo pat žiniatinklio atsiradimo pradžios interneto technologijų branduolį sudaro JavaScript programavimo kalba, kurios prototipas per 10 dienų buvo sukurtas 1995 metais kompanijos Netscape Communications. Ši programavimo kalba žiniatinklyje iki šiol užėmė visišką monopoliją, interneto aplikacijų klientinės dalies kūrimas be jos yra tiesiog sunkiai įsivaizduojamas atvejis. Kalbos populiarumą ir išplitimą patvirtina GitHub saugyklos repozitorijų statistiniai duomenys, pagal kuriuos kalba jau ilgą laiką pirmauja turėdama virš 320000 aktyvių repozitorijų. \cite{GIT19}
+Nuo pat žiniatinklio atsiradimo pradžios interneto technologijų branduolį sudaro JavaScript programavimo kalba, kurios prototipas per 10 dienų buvo sukurtas 1995 metais kompanijos Netscape Communications \cite{BAH15}. Ši programavimo kalba žiniatinklyje iki šiol užėmė visišką monopoliją, interneto aplikacijų klientinės dalies kūrimas be jos yra tiesiog sunkiai įsivaizduojamas atvejis. Kalbos populiarumą ir išplitimą patvirtina GitHub saugyklos repozitorijų statistiniai duomenys, pagal kuriuos kalba jau ilgą laiką pirmauja turėdama virš 320000 aktyvių repozitorijų. \cite{GIT19}
 
 \subsubsubsection{Dinaminė prigimtis}
 
@@ -188,25 +190,26 @@ x = {                         //console.log(x) => [Object]
 \end{small}
 \end{center}
 
-Ši kalbos savybė programuotojams užtikrina lanksčias galimybes greitai ir ekspresyviai rašyti programinį kodą, kurio vykdymo pradžia yra itin greita, nes JavaScript yra interpretuojama kalba. Deja, bet ši kalbos dinamiškumo savybė itin trukdo vykdyti programinį kodą, kuris imlus operacijų kiekiui, reikalauja didelės greitaveikos, nes interpretatorius privalo kiekvieną kartą tikrinti, ar vykdomas kodas turi tuos pačius tipus. \cite{LCW17}
+Ši kalbos savybė programuotojams užtikrina lanksčias galimybes greitai ir ekspresyviai rašyti programinį kodą, kurio vykdymo pradžia yra itin greita, nes JavaScript yra interpretuojama kalba. Deja, bet ši kalbos dinamiškumo savybė itin trukdo vykdyti programinį kodą, kuris imlus operacijų kiekiui, reikalauja didelės greitaveikos, nes interpretatorius privalo kiekvieną kartą tikrinti, ar vykdomas kodas turi tuos pačius tipus, monitoringo procesas yra imlus greitaveikai. \cite{LCW17}
 
 \subsubsection{Naršyklių gamintojų greitaveikos problemos sprendimas}
 
 Didieji naršyklių gamintojai siekdami išnaudoti geriausias interpretatorių ir kompiliatorių savybes įdiegė naujus papildomus žingsnius JavaScript kodo vykdymo variklyje procese. Dauguma JavaScript variklių šiuo metu naudoja labai panašios architektūros kodo kompiliavimo procesus, todėl panagrinėsime vieno jų — Google kompanijos kuriamo ir palaikomo atviro kodo variklio — veikimo principus.
 
-\subsubsubsection{V8 variklio Javascript kodo vykdymo etapai}
+\subsubsubsection{V8 variklio JavasCript kodo vykdymo etapai}
 Iki 2008 metų JavaScript kodo vykdymas naršyklėse buvo pastibimai lėtesnis, tačiau prasidėjus naršyklių gamintojų „greitaveikos karams" buvo įdiegti JIT (angl. — Just in Time) kompiliatoriai, kurie pastebimai padidino greitaveikos rodiklius. \cite{DAC17} Šių kompiliatorių vietą JavaScript kodo vykdymo grandinėje galima matyti \ref{fig:v8_pipeline} paveikslėlyje.
 
 \begin{figure}[h!]
   \begin{center}
   \includegraphics[scale=0.8]{V8_kompiliavimo_grandinė.png}
   \end{center}
-  \caption{Chrome naršyklėje naudojamo V8 Javascript variklio kodo vykdymo grandinė \cite{HNO19}}
+  \caption{Chrome naršyklėje naudojamo V8 JavaScript variklio kodo vykdymo grandinė \cite{HNO19}}
   \label{fig:v8_pipeline}
 \end{figure}
 
+JIT kompiliatoriai kodą optimizuoja pagal sukauptą informaciją iš monitoringo įrankio, kuris stebi kintamųjų tipus, jų kitimą, funkcijų kvietimo dažnius ir kt. Jeigu optmizuotas kodas tampa nevalidus (tarkime, jog atėjo nauji kintamųjų tipai), atliekamas deoptimizavimo žingsnis, JavaScript kodo vykdymas grąžinamas V8 interpretatoriui - Ignition. Šis procesas reikalauja laiko, todėl, žinoma, kenčia ir kodo vykdymo greitaveika, tačiau gana stabiliam kodui optimizavimo procesas labai naudingas.
 \subsubsubsection{Ribojimai}
-Nepaisant šių technologinių naujovių naršyklių varikliuose, optimizavimo procesas vykdant JavaScript kodą vis tiek nėra pats greičiausias procesas. Tas puikiai matosi pritaikant vaizdo apdorojimo algoritmus, skirtus tam tikram efektui išgauti. Pavyzdžiui, kadrų skaičius per sekundę, JavaScript kalba realizavus Super Edge Inv algoritmą, yra pastebimai žemas ir juntamas aiškus uždelsimas. \cite{WVE17} Reikalinga naujovė, kuri leistų internete išgauti tokią pačią greitaveiką, kuri sėkmingai taikoma programuojant su tradicinėmis platformomis, tokiomis kaip C/C++.
+Nepaisant šių technologinių naujovių naršyklių varikliuose, optimizavimo procesas vykdant JavaScript kodą vis tiek dažnai neatitinka keliamų poreikių, reikalavimų. Tas puikiai matosi pritaikant vaizdo apdorojimo algoritmus, skirtus tam tikram efektui išgauti. Pavyzdžiui, kadrų skaičius per sekundę, JavaScript kalba realizavus Super Edge Inv vaizdo efekto algoritmą, yra pastebimai žemas ir juntamas aiškus uždelsimas. \cite{WVE17} Reikalinga naujovė, kuri leistų internete išgauti tokią pačią greitaveiką, kuri sėkmingai taikoma programuojant su tradicinėmis platformomis, pavydžiui, OpenGL grafine biblioteka ir statine kompiliuojama C++ kalba.
 
 \section{WebAssembly standarto specifikacija}
 
@@ -400,9 +403,9 @@ Kuriant serverio pusės logiką ASP.NET technologine platforma nebuvo itin aktua
 \end{itemize}
 
 \sectionnonum{Rezultatai ir išvados}
-Rašto darbe pristatyta žiniatinklio naudojimo augimo tendencija, atskleistos JavaScript kalbos ir naršyklių variklių kodo vykdymo architektūrinės greitaveikos problemos, lėmusios WebAssembly standarto sukūrimą. Taip pat darbe suformuluotas standarto apibrėžimas ir pristatyta jo veikimo logika, nurodyta koncepcinė WebAssembly veikimo naršyklėse architektūra. Šiame darbe pristatyti du pagrindiniai WebAssembly panaudojimo scenarijai: centrinio greitaveikai imlios verslo logikos modulio pakeitimas WebAssembly modulio realizacija ir kitas - naujos klientinės programos kūrimas nuo pradžių pasitelkiant karkasus, sukurtus WebAssembly technologijos pagrindu ir leidžiančius interneto platformoje programuoti kitomis programavimo kalbomis, nei JavaScript. Rašant rašto darbą teko išbandyti C kalba parašytos Bubble sort funckijos kompiliavimo į WebAssembly modulį procesą ir iškviesti sukompiliuotą kodą iš naršyklės perduodant iš JavaScript aplinkos parametrus į WebAssembly kodą, todėl praktiškai buvo įsitikinta panaudojimo galimybėmis jau šiomis dienomis.
+Rašto darbe pristatyta žiniatinklio naudojimo augimo tendencija, atskleistos JavaScript kalbos ir naršyklių variklių kodo vykdymo architektūrinės greitaveikos problemos, lėmusios WebAssembly standarto sukūrimą. Taip pat darbe suformuluotas standarto apibrėžimas ir pristatyta jo veikimo logika, nurodyta koncepcinė WebAssembly veikimo naršyklėse architektūra. Šiame darbe pristatyti du pagrindiniai WebAssembly panaudojimo scenarijai: centrinio greitaveikai imlios verslo logikos modulio pakeitimas WebAssembly modulio realizacija ir kitas - naujos klientinės programos kūrimas nuo pradžių pasitelkiant karkasus, sukurtus WebAssembly technologijos pagrindu ir leidžiančius interneto platformoje programuoti kitomis programavimo kalbomis, nei JavaScript. Rašant šį rašto darbą teko išbandyti C kalba parašytos burbulo metodo rikiavimo funckijos kompiliavimo į WebAssembly modulį procesą ir iškviesti sukompiliuotą kodą iš naršyklės perduodant parametrus iš JavaScript aplinkos  į WebAssembly kodą, todėl praktiškai buvo įsitikinta panaudojimo galimybėmis jau šiomis dienomis, su egzistuojančiomis technologijomis
 
-WebAssembly standarto atsiradimas ir pritaikymas neabejotinai turi savo panaudojimo galimybes ir vietas, kurios leidžia įmonėms patobulinti savo turimus programų sistemų produktus greitaveikos atžvilgiu ir taip įgauti dar didesnį klientų pasitikėjimą ir palankumą internete. Daugelis apie šį standartų rinkinį kalbančių žmonių net neabejoja, jog WebAssembly per pastaruosius kelis metus visiškai pakeis požiūrį, kaip kursime klientines žiniatinklio programas ir aš, susipažainęs su pristatyta technologija, negaliu su jais nesutikti, tačiau tikiuosi, jog šiuo rašto darbu taip pat pavyko skaitytojus įtikinti, jog WebAssembly technologija, kaip vaizduoja jos logotipas, tėra viena dėlionės dalis, papildanti - ne pakeičianti - kitą, tradicinę - JavaScript interneto pusę - tose vietose, kuriose pastaroji buvo ilgą laiką labai ribota.
+WebAssembly standarto atsiradimas ir pritaikymas neabejotinai turi savo panaudojimo galimybes ir vietas, kurios leidžia įmonėms patobulinti savo turimus programų sistemų produktus greitaveikos atžvilgiu ir taip įgauti dar didesnį klientų pasitikėjimą ir palankumą internete arba užimti naujas, dar nerealizuotas rinkos galimybes. Daugelis apie šį standartų rinkinį kalbančių žmonių net neabejoja, jog WebAssembly per pastaruosius kelis metus visiškai pakeis požiūrį, kaip kursime klientines žiniatinklio programas ir aš, susipažinęs su pristatyta technologija, negaliu su jais nesutikti, tačiau tikiuosi, jog šiuo rašto darbu taip pat pavyko skaitytojus įtikinti, jog WebAssembly technologija, kaip vaizduoja jos logotipas, tėra viena dėlionės dalis, papildanti - ne pakeičianti - kitą, tradicinę - JavaScript interneto pusę - tose vietose, kuriose pastaroji buvo ilgą laiką labai ribota.
 %% PAKEISTAS PAVADINIMAS Į 'Šaltiniai'
 \addcontentsline{toc}{section}{Šaltiniai} 
 \printbibliography[heading=bibintoc, title=Šaltiniai]  % Šaltinių sąraše nurodoma panaudota
@@ -450,6 +453,11 @@ Nick Heath, TechRepublic. Replacing JavaScript: How eBay made a web app 50x fast
 \bibitem[BLZ19]{BLZ19} 
 Blazor Documentation. Žiūrėta [2019—06—07].  Prieiga internetu: \url{https://docs.microsoft.com/lt-lt/aspnet/core/blazor/?view=aspnetcore-3.0}
 
+\bibitem[W3C19]{W3C19} 
+Pasaulinio žiniatinklio konsorciumo svetainė Žiūrėta [2019—06—07].  Prieiga internetu: \url{https://www.w3.org/wiki/Main_Page}
+
+\bibitem[BAH15]{BAH15} 
+Ben Aston. A brief history of JavaScript. Žiūrėta [2019—06—07].  Prieiga internetu: \url{https://medium.com/@benastontweet/lesson-1a-the-history-of-javascript-8c1ce3bffb1}
 \end{thebibliography}
 % literatūra, kitokie šaltiniai. Abėcėlės tvarka išdėstomi darbe panaudotų
 % (cituotų, perfrazuotų ar bent paminėtų) mokslo leidinių, kitokių publikacijų
@@ -457,8 +465,19 @@ Blazor Documentation. Žiūrėta [2019—06—07].  Prieiga internetu: \url{http
 % Aprašai pateikiami netransliteruoti. Šaltinių sąraše negali būti tokių
 % šaltinių, kurie nebuvo paminėti tekste.
 
-% \sectionnonum{Sąvokų apibrėžimai}
-\sectionnonum{Santrumpos}
+\sectionnonum{Sąvokų apibrėžimai}
+
+\textbf{Programa kaip paslauga (angl. Software as a Service)} - programinis produktas, nereikalaujantis, jog vartotojas jį įdiegtų į savo elektroninį įrenginį, dažniausiai veikiantis paskirstytuose dalykiniuose serveriuose, duomenų centruose, galintis vienu metu aptarnauti daug vartotojų.
+
+\textbf{Naršyklės smėliadėžės aplinka (angl. browser sandbox environment)} - naršyklėse įdiegta, izoliuota JavaScript ir WebAssembly kodo vykdymo erdvė, ribojanti prieigą prie sisteminių resursų siekiant apsaugoti galutinį interneto naršyklės naudotoją.
+
+\textbf{Pasaulinio žiniatinklio konsorciumas (W3C)} - tarptautinis programinės įrangos kūrimo bendruomenės susivienijimas, kuriantis ir teikiantis standartus ir rekomendacijas žiniatinkliui. \cite{W3C19}
+
+\textbf{HTTP protokolas (angl. Hyper Text Transfer Protocol)}
+
+\textbf{HTML kalba (angl. Hyper Text Markup Language)}
+
+\textbf{CSS kalba (angl. Cascading Style Sheets)}
 TODO
 
 
