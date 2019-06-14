@@ -44,25 +44,6 @@
 \maketitle
 \cleardoublepage\pagenumbering{arabic}
 
-\begin{center}{\large\textbf{WebAssembly panaudojamumo galimybių analizė kuriant internetines programas}}\end{center}
-\begin{small}
-\vspace{2\baselineskip}
-\begin{center}\textbf{Santrauka}\end{center}
-WebAssembly technologija — moderniose interneto naršyklėse realizuotas naujų, atvirų žiniatinklio standartų rinkinys, suteikiantis iki šiol neregėtus greitaveikos rodiklius ir naujas programavimo galimybes internete. Nepaisant to, technologija kol kas išlieka tik pradiniuose vystymo etapuose, plati žiniatinklio programuotojų bendruomenė tik pradeda susipažinti su jos siūlomomis naujovėmis. Šiame rašto darbe siekiama išanalizuoti skirtingas technologijos pritaikymo galimybes kuriant internetines programų sistemas. Siekiant geriau suvokti WebAssembly technologijos esmę, analizės metu apžvelgiamas žiniatinklio technologinės raidos kontekstas ir apibrėžiamos esminės naujo standartų rinkinio ypatybės. 
-\vspace{\baselineskip}
-\end{small}
-\vspace{\baselineskip}
-\thispagestyle{empty}
-\begin{center}{\large\textbf{WebAssembly Usability Analysis in Web Development}}\end{center}
-\begin{small}
-\vspace{2\baselineskip}
-\begin{center}\textbf{Abstract}\end{center}
-WebAssembly is the set of new open web standards, implemented in all modern internet browsers, providing ultimate performance benefits and new programming experience in web environment. Despite that, the technology is still in its infancy stages, the broad community of web developers only begin to learn all new features it provides. This coursework paper tries to provide several different WebAssembly usability cases where technology seems to be applicable. While trying to better identify the essence of this standard, the ecosystem of web techologies development evolution is defined and further on, the most important aspects of standard are pointed out.
-
-\vspace{\baselineskip}
-\end{small}
-\vspace{\baselineskip}
-
 %TURINYS
 \setcounter{page}{2}
 \tableofcontents
@@ -73,7 +54,7 @@ eksponentiškai – šiomis dienomis programinės įrangos kūrimo rinkoje inter
 platformos, debesų kompiuterija yra įmonių dėmesio centre, nes galimybė pasiūlyti programinį 
 produktą internetu atveria didelį konkurencinį pranašumą – klientams nebereikia įsidiegti 
 programinės įrangos į savo elektroninius įrenginius, užtenka vienos programos – interneto 
-naršyklės – atveriančios plačias galimybes naudotis skirtingų tipų programomis, pateikiamomis, 
+naršyklės – atveriančios plačias galimybes naudotis skirtingų tipų programomis, pateikiamomis 
 kaip paslauga klientui (angl. — Software as a Service). Be to, patys programų sistemų kūrėjai 
 patiria mažesnius kaštus kurdami ir palaikydami savo produktus, nes nebelieka poreikio turėti 
 skirtingų kodo bazių specifinėms operacinėms aplinkoms ar įrenginiams.
@@ -99,8 +80,9 @@ gali būti integruotas į naujas ir jau egzistuojančias internetines programų 
 Išsikelti pagrindiniai tarpiniai uždaviniai, padedantys atskleisti WebAssembly standarto esmę ir įgyvendinti užsibrėžtą tikslą:
 \begin{itemize}
     \item Identifikuoti kintančią saityno naudojimo paskirtį
-    \item Apibrėžti interneto naršyklių bendrus veikimo principus
+    \item Apibrėžti interneto naršyklių programinio kodo vykdymo principus
     \item Suvokti ir pristatyti WebAssembly technologijos veikimo logikos ypatybes
+    \item Išbandyti WebAssembly kodo generavimo ir vykdymo procesą, susipažinti su šiomis dienomis egzistuojančiais iššūkiais
     \item Surasti ir aprašyti keletą skirtingų WebAssembly pritaikymo galimybių
 \end{itemize}
 
@@ -118,7 +100,7 @@ Interneto bendruomenę sudarančių Žemės gyventojų skaičius šiuo metu vir�
   \label{fig:internet_usage}
 \end{figure}
 
-Ši statistika tik patvirtina plataus Interneto technologijų pritaikymo poreikio aktualumą ir didelę atsakomybę, tenkančią šių technologijų vedliams — interneto naršyklių kūrėjams. Žiniatinklis jau seniai nėra skirtas tik informacijos paieškai ir dalinimuisi, ką įgalino pradinės saityno technologijos — HTTP protokolas, HTML ir CSS žymėjimo kalbos. Ši žiniatinklio paskirties kitimo raida aiškiai atsispindi iš semantinės saityno kategorizacijos, kurią pasiūlė Pasaulinio žiniatinklio konsorciumo pirmininkas, saityno įkūrėjas Tim-Berners Lee.
+Ši statistika tik patvirtina plataus Interneto technologijų pritaikymo poreikio aktualumą ir didelę atsakomybę, tenkančią šių technologijų kūrėjams — interneto naršyklių gamintojams. Žiniatinklis jau seniai nėra skirtas tik informacijos paieškai ir dalinimuisi, ką įgalino pradinės saityno technologijos — OSI\footnote{angl. Open Systems Interconnection - koncepcinis protokolų kategorizacijos modelis} modelio aplikacijos lygio HTTP\footnote{angl. Hyper Text Transfer Protocol} protokolas, HTML\footnote{angl. Hyper Text Markup Language} ir CSS\footnote{angl. Cascading Style Sheets} žymėjimo kalbos. Ši žiniatinklio paskirties kitimo raida aiškiai atsispindi iš semantinės saityno kategorizacijos, kurią pasiūlė Pasaulinio žiniatinklio konsorciumo pirmininkas, saityno įkūrėjas Tim-Berners Lee.
 
 \subsection{Semantinės Saityno stadijos}
 Šiuo metu pagal viešai priimtą, žiniatinklio įkūrėjo Sero Tim-Berners Lee apibrėžtą kategorizaciją, yra išskirtos trys pagrindinės semantinės Saityno stadijos, nurodančios palaipsniui augančią žiniatinklio technologijų poreikio svarbą \cite{NS09}.
@@ -138,7 +120,7 @@ Interneto bendruomenę sudarančių Žemės gyventojų skaičius šiuo metu vir�
     Socialiniai tinklai & Pavyzdžiai - Facebook, Twitter, Instagram platformos. Informacija dalinasi ir kuria kiekvienas tinklo bendruomenės narys.\\
  \hline
 Elektroninė komercija &
-     Virtualios parduotuvės, elektroninės valdžios vartai, konsultavimas internetu. Šio tipo technologijos kuria interneto ekonominę erdvę ir generuoja milžiniškas pajamas kiekvienais metais\\
+     Virtualios parduotuvės, elektroninės valdžios vartai, konsultavimas internetu. Šio tipo technologijos kuria Interneto ekonominę erdvę ir generuoja milžiniškas pajamas kiekvienais metais\\
     \hline
      Programinės paslaugos & Programiniai resursai internete, leidžiantys naudotis kompiuterine programine įranga debesų kompiuterijos pagrindu. Pavyzdžiui - Gmail pašto paslauga, Dropbox bylų saugojimo ir dalinimosi įrankis \\
      \hline
@@ -150,9 +132,9 @@ Elektroninė komercija &
 Šis etapas apibrėžia kintantį požiūrį į informaciją, pasiekiamą žiniatinklyje. Internetas tampa viena didele duomenų baze, skirta ne tik pavieniams individams ar organizacijoms valdyti duomenis, tačiau daugiau jais dalintis tarpusavyje, interpretuoti ir perteikti įvairiomis perspektyvomis. Tradicinis interneto svetainės konceptas pamažu netenka prasmės, nes visa viešai žiniatinklyje prieinama informacija gali būti pasiekiama ir toms programų sistemoms, kurios tiesiogiai nefunkcionuoja internetinėje erdvėje.
 
 \subsection{Besiplečiančio žiniatinklio iššūkiai}
-Identifikuotas kompleksiškų internetinių programų sistemų poreikio augimas interneto erdvėje kelia aukštus reikalavimus jau egzistuojančioms pagrindinėms žiniatinklio technologijoms - interneto naršyklėms, jų viduje esantiems JavaScript kalbos varikliams, apdorojantiems ir vykdantiems programinį išeities kodą. Dažnu atveju su turimomis technologijomis šie reikalavimai tampa per sudėtingi ir neįgyvendinami. Norint suprasti šiuos esamus architektūrinius žiniatinklio technologijų barjerus, reikia suvokti, kaip veikia interneto naršyklės ir kokiu būdu jos įvykdo programinio kodo instrukcijas.
+Identifikuotas kompleksiškų programų sistemų poreikio augimas interneto erdvėje kelia aukštus reikalavimus jau egzistuojančioms pagrindinėms žiniatinklio technologijoms - interneto naršyklėms, jų viduje esantiems JavaScript kalbos varikliams, apdorojantiems ir vykdantiems programinį išeities kodą. Dažnu atveju su turimomis technologijomis šie reikalavimai tampa per sudėtingi ir neįgyvendinami. Norint suprasti šiuos esamus architektūrinius žiniatinklio technologijų barjerus, reikia suvokti, kaip veikia interneto naršyklės ir kokiu būdu jos vykdo programinio kodo instrukcijas.
 
-\section{Interneto naršyklių veikimo principai}
+\section{Interneto naršyklių programinio kodo vykdymo principai}
 Interneto naršyklė architektūriniu požiūriu yra itin sudėtinga programa, nes procese nuo resurso parsiuntimo iš nutolusio serverio iki jo grafinio atvaizdavimo naršyklės lange dalyvauja daug sisteminių programos komponentų, nurodytų \ref{fig:browser_architecture} paveikslėlyje. 
 
 \begin{figure}[h!]
@@ -230,7 +212,7 @@ x = {                         //console.log(x) => [Object]
 \subsection{Naršyklių gamintojų greitaveikos problemos sprendimas}
 
 
-Didieji naršyklių gamintojai siekdami išnaudoti geriausias interpretatorių ir kompiliatorių savybes įdiegė naujus papildomus žingsnius JavaScript kodo vykdymo variklyje procese. Dauguma JavaScript variklių šiuo metu naudoja labai panašios architektūros kodo kompiliavimo procesus, todėl panagrinėsime vieno jų — Google kompanijos kuriamo ir palaikomo atviro kodo variklio — veikimo principus.
+Didieji naršyklių gamintojai siekdami išnaudoti geriausias interpretatorių ir kompiliatorių savybes įdiegė naujus papildomus žingsnius JavaScript kodo vykdymo variklyje. Dauguma JavaScript variklių šiuo metu naudoja labai panašios architektūros kodo kompiliavimo procesus, todėl panagrinėsime vieno jų — Google kompanijos kuriamo ir palaikomo atviro kodo variklio — veikimo principus.
 
 \subsubsection{V8 variklio JavaScript kodo vykdymo etapai}
 \begin{figure}[h!]
@@ -242,9 +224,9 @@ Didieji naršyklių gamintojai siekdami išnaudoti geriausias interpretatorių i
 \end{figure}
 
 Iki 2008 metų JavaScript kodo vykdymas naršyklėse buvo pastebimai lėtesnis, tačiau prasidėjus naršyklių gamintojų „greitaveikos karams" buvo įdiegti JIT (angl. — Just in Time) kompiliatoriai, kurie pastebimai padidino greitaveikos rodiklius. \cite{Cal17} Šių kompiliatorių vietą JavaScript kodo vykdymo grandinėje galima matyti \ref{fig:v8_pipeline} paveikslėlyje.
-JIT kompiliatoriai kodą optimizuoja pagal sukauptą informaciją iš monitoringo įrankio, kuris stebi kintamųjų tipus, jų kitimą, funkcijų kvietimo dažnius ir kt. Jeigu optimizuotas kodas tampa nevalidus (tarkime, jog atėjo nauji kintamųjų tipai), atliekamas deoptimizavimo žingsnis, JavaScript kodo vykdymas grąžinamas V8 interpretatoriui - Ignition. Šis procesas reikalauja laiko, todėl, žinoma, kenčia ir kodo vykdymo greitaveika, tačiau gana stabiliam kodui optimizavimo procesas labai naudingas.
+JIT kompiliatoriai kodą optimizuoja pagal sukauptą informaciją iš monitoringo įrankio, kuris stebi kintamųjų tipus, jų kitimą, funkcijų kvietimo dažnius ir kt. Jeigu optimizuotas kodas tampa nevalidus (tarkime, jog atėjo nauji kintamųjų tipai), atliekamas deoptimizavimo žingsnis, JavaScript kodo vykdymas grąžinamas V8 interpretatoriui - Ignition. Šis procesas reikalauja laiko, todėl, žinoma, kenčia ir kodo vykdymo greitaveika, tačiau gana stabiliam kodui optimizavimo procesas naudingas.
 \subsubsection{Ribojimai}
-Nepaisant šių technologinių naujovių naršyklių varikliuose, optimizavimo procesas vykdant JavaScript kodą dažnai neatitinka keliamų poreikių. Tas puikiai matosi pritaikant vaizdo apdorojimo algoritmus, skirtus tam tikram efektui išgauti. Pavyzdžiui, kadrų skaičius per sekundę, JavaScript kalba realizavus Super Edge Inv vaizdo efekto algoritmą, yra pastebimai žemas ir juntamas aiškus uždelsimas. \cite{WVE17} Reikalinga naujovė, kuri leistų internete išgauti tokią pačią greitaveiką, kuri sėkmingai taikoma programuojant su tradicinėmis platformomis, pavydžiui, OpenGL grafine biblioteka ir statine kompiliuojama C++ kalba.
+Nepaisant šių technologinių naujovių naršyklių varikliuose, optimizavimo procesas vykdant JavaScript kodą dažnai neatitinka keliamų poreikių. Tas puikiai matosi pritaikant vaizdo apdorojimo algoritmus, skirtus tam tikram efektui išgauti. Pavyzdžiui, kadrų skaičius per sekundę, JavaScript kalba realizavus Super Edge Inv\footnote{Vaizdo efekto algoritmas, išryškinantis objekto kontūrus} vaizdo efekto algoritmą, yra pastebimai žemas ir juntamas aiškus uždelsimas. \cite{WVE17} Reikalinga naujovė, kuri leistų internete išgauti tokią pačią greitaveiką, kuri sėkmingai taikoma programuojant su tradicinėmis platformomis, pavydžiui, OpenGL\footnote{Programinė sąsaja, skirta manipuliuoti vektorine 2D ir 3D grafika} grafine biblioteka ir statine kompiliuojama C++ kalba.
 
 \section{WebAssembly standarto specifikacija}
 
@@ -273,7 +255,7 @@ WebAssembly mašininis kodas skirtas vykdyti steko pagrindu veikiančioms virtua
 
 \subsection{Virtualios mašinos realizacija}
 
-WebAssembly formatas sukurtas steko pagrindu veikiančiai mašinai — tai specialus virtualios mašinos implementacijos atvejis, kai aritmetiniai ir loginiai operandai ir operacijų rezultatai saugomi steko pagrindo duomenų struktūroje, o išėmimo ir įdėjimo tvarka grįsta LIFO (angl. — last-in-first-out) principu. 
+WebAssembly formatas sukurtas steko pagrindu veikiančiai mašinai — tai specialus virtualios mašinos implementacijos atvejis, kai aritmetiniai ir loginiai operandai ir operacijų rezultatai saugomi steko pagrindo duomenų struktūroje, o išėmimo ir įdėjimo tvarka grįsta LIFO\footnote{angl. Last In First Out - paskutinis idėtas bus pirmas išimtas} principu. 
 
 \begin{figure}[h!]
   \begin{center}
@@ -284,10 +266,10 @@ WebAssembly formatas sukurtas steko pagrindu veikiančiai mašinai — tai speci
 \end{figure}
 
 Šis virtualios mašinos implementacijos būdas užtikrina efektyvią greitaveiką, nes nereikia išreikštinai žinoti operandų atminties adresų — naudojama steko viršūnės rodyklė (angl. — Stack Pointer), o kiekiena įdėjimo/išėjimo operacija pakeičia šios rodyklės reikšmę vienetu.
-Kaip matome \ref{fig:stack_addition} paveikslėlyje, paprastai sudėties operacijai steko implementacijos atveju reikia keturių komandų. Egzistuoja registrais grįsta virtualios mašinos realizacija, kurioje sudėtis gali būti išreiškiama viena operacija, tačiau tokiu atveju reikia nurodyti ir žinoti registrų adresus. \cite{Sin12} Neteisinga teigti, jog viena implementacija universaliu atveju geresnė už kitą, efektyvumą lemia naudojimo kontekstas.
+Kaip matome \ref{fig:stack_addition} paveikslėlyje, paprastai sudėties operacijai steko implementacijos atveju reikia keturių komandų. Egzistuoja registrais grįsta virtualios mašinos realizacija, kurioje sudėtis gali būti išreiškiama viena operacija, tačiau tokiu atveju reikia nurodyti ir žinoti registrų adresus, todėl užimama daugiau vietos. \cite{Sin12} Neteisinga teigti, jog viena implementacija universaliu atveju geresnė už kitą, efektyvumą lemia naudojimo kontekstas.
 
 \subsection{Atviras standartų rinkinys}
-WebAssembly technologija yra standartizuota, todėl nereikalauja papildomų įskiepių ar kitų programinių papildinių. Visos modernios naršyklės - Chrome, Safari, Edge, Firefox - realizavusios WebAssembly vykdymo variklius, todėl programuotojams nebereikia spręsti skirtingų naršyklių suderinamumo problemos, kuri dažnai itin išaugina programavimo laiko ir kainos kaštus. Tiesa, reikia paminėti, jog šis standartas nepalaikomas Internet Explorer naršyklėse. 
+WebAssembly technologija yra standartizuota, todėl nereikalauja papildomų įskiepių ar kitų programinių papildinių. Visos modernios naršyklės — Chrome, Safari, Edge, Firefox — realizavusios WebAssembly vykdymo variklius, todėl programuotojams nebereikia spręsti skirtingų naršyklių suderinamumo problemos, kuri dažnai itin išaugina programavimo laiko ir kainos kaštus. Tiesa, reikia paminėti, jog šis standartas nepalaikomas Internet Explorer naršyklėse. 
 
 Šiame skyriuje aptartos WebAssembly standarto greitaveiką lemiančios kalbos žemo lygmens, statiškumo ir greižtos išraiškos savybės, vidinė virtualios mašinos steko pagrindu realizacija, todėl toliau galima ieškoti konkrečių technologijos pritaikymo erdvių.
 
@@ -302,7 +284,7 @@ Sakykime, jog turime realizavę internetinę programą, kurios esminė verslo lo
 \subsubsection{Sprendimas}
 Galima bandyti susidariusią problemą spręsti pertvarkant egzistuojantį centrinį verslo logikos algoritmą, parašytą JavaScript programavimo kalba ir stebint greitaveikos rodiklius, tačiau anksčiau ar vėliau neabejotinai bus pasiekta riba, kurios peržengti su esama technologija nebus įmanoma, nes pati kalba nesuteikia prieigos prie žemų programinių konstruktų, tokių kaip savarankiškas ir efektyvus atminties išskyrimas ir valdymas. 
 \subsubsubsection{WebAssembly integracija}
-Šioje vietoje atsiranda galimybė panaudoti enkapsuliuotą WebAssembly modulį, kuris savyje turėtų realizuotą centrinį skaičiavimų logikos algoritmą \cite{Cal17}. Jeigu mūsų internetinės programų sistemos sprendimas kilo iš jau anksčiau egzistavusios darbalaukinės programos, didelė galimybė, jog mums net nereikės perrašinėti jokios verslo logikos kita kalba, galėsime sukompiliuoti seną kodo bazę į \verb|.wasm| mašininio kodo formatą ir iškviesti programinį modulį tiesiai iš interneto naršyklės. Šis seno kodo perpanaudojimo principas suteikia galimybę išnaudoti WebAssembly technologinės naujovės teikiamą naudą net nemokant programuoti tomis kalbomis, kurių bibliotekas ar modulius norime panaudoti. Sakykime, jog savo algoritmą turime įgyvendinę C programavimo kalba, imituokime mūsų verslo logikos funkcionalumą realizuodami paprastą Burbulo metodo (angl. — Bubble Sort) rikiavimo funkciją:
+Šioje vietoje atsiranda galimybė panaudoti enkapsuliuotą WebAssembly modulį, kuris savyje turėtų realizuotą centrinį skaičiavimų logikos algoritmą \cite{Cal17}. Jeigu mūsų internetinės programų sistemos sprendimas kilo iš jau anksčiau egzistavusios darbalaukinės programos, didelė galimybė, jog mums net nereikės perrašinėti jokios verslo logikos kita kalba, galėsime sukompiliuoti seną kodo bazę į \verb|.wasm| mašininio kodo formatą ir iškviesti programinį modulį tiesiai iš interneto naršyklės. Šis seno kodo pernaudojimo principas suteikia galimybę išnaudoti WebAssembly technologinės naujovės teikiamą naudą net nemokant programuoti tomis kalbomis, kurių bibliotekas ar modulius norime panaudoti. Sakykime, jog savo algoritmą turime įgyvendinę C programavimo kalba, imituokime mūsų verslo logikos funkcionalumą realizuodami paprastą Burbulo metodo (angl. — Bubble Sort) rikiavimo funkciją:
 
 \begin{center}
 \begin{small}
@@ -367,7 +349,7 @@ Taigi, turėdami sukompiliuotą modulį ir jį iškviečiantį sugeneruotą suri
 \end{small}
 \end{center}
 
-Pirmuoju parametru nurodome kviečiamą funkciją, antrasis parametras apibrėžia iš kviečiamos funkcijos grįžtantijį tipą, trečias ir ketvirtas — perduodamų parametrų tipus ir reikšmes, penktasis parametras — perduodamas objektas — apibrėžia jog naudosime WebAssembly \verb|HEAP8| (baito dydžio) sveikųjų skaičių piramidės atminties sritį. Įvykdžius \verb|ccallArrays| funkciją rezultato kintamasis \verb|res| gauna \verb|int8_t| tipo rodyklę, būtent tokio tipo, kokį apibrėžėme C funkcijoje. Ši rodyklė rodo į surikiuoto masyvo pradžios atminties sritį, todėl JavaScript kode galime pasiekti pakeistąjį masyvą. Našyklės konsolėje stebimas paveikslėjyje matomas kvietimo rezultatas.
+Pirmuoju parametru nurodome kviečiamą funkciją, antrasis parametras apibrėžia iš kviečiamos funkcijos grįžtantijį tipą, trečias ir ketvirtas — perduodamų parametrų tipus ir reikšmes, penktasis parametras — perduodamas objektas — apibrėžia jog naudosime WebAssembly \verb|HEAP8| (baito dydžio) sveikųjų skaičių piramidės atminties sritį. Įvykdžius \verb|ccallArrays| funkciją rezultato kintamasis \verb|res| gauna \verb|int8_t| tipo rodyklę, būtent tokio tipo, kokį apibrėžėme C funkcijoje. Ši rodyklė rodo į surikiuoto masyvo pradžios atminties sritį, todėl JavaScript kode galime pasiekti pakeistąjį masyvą. Našyklės konsolėje stebimas \ref{fig:sorted_array} paveikslėjyje matomas funkcijos kvietimo rezultatas.
 
 \begin{figure}[h!]
   \begin{center}
@@ -408,7 +390,7 @@ Vienas didžiausių standarto privalumų, kurio įtaką žiniatinkliui galima la
 }
 \end{verbatim}
 \end{small}
-\end{center}Pateiktas C\# Razor sintaksės pavyzdys, kuriame paspaudus mygtuką skaitliukas padidinamas vientu. Dažniausiai tokį kodą dinamiškai vykdo JavaScript variklis, tačiau, kaip matome iš pavyzdžio, viskas rašoma naudojant tik HTML ir C\#, šiame pavyzdyje nedaroma jokių HTTP užklausų į nutolusį serverį.
+\end{center}Pateiktas C\# Razor sintaksės pavyzdys, kuriame paspaudus mygtuką skaitliukas padidinamas vienetu \cite{BLZ19}. Dažniausiai tokį kodą dinamiškai vykdo JavaScript variklis, tačiau, kaip matome iš pavyzdžio, viskas rašoma naudojant tik HTML ir C\#, šiame pavyzdyje nedaroma jokių HTTP užklausų į nutolusį serverį.
 
 Šis WebAssembly pritaikymo pavyzdys yra daug platesnis nei anksčiau aprašytasis centrinės logikos realizacijos pakeitimo, nes apima visą klientinės programos logikos perkėlimą į WebAssembly mašininį kodą.
 
@@ -441,7 +423,7 @@ Kuriant serverio pusės logiką ASP.NET technologine platforma nebuvo itin aktua
 \subsubsubsection{asm-dom įrankis C++ klientinei programai}
 Šis atviro kodo įrankis — virtualaus DOM medžio biblioteka, skirta kurti klientines vieno puslapio aplikacijas C++ programavimo kalba. Ši biblioteka skatina C++ kodo bazės pernaudojamumą ir suteikia kodo vykdymo greitaveiką, kuri artima tradicinėse aplinkose esantiems greičiams \cite{ASM19}. C++ kodas kompiliuojamas į WebAssembly modulius panaudojant jau anksčiau minėtą Emscripten kompiliavimo įrankį.
 
-Ši biblioteka leidžia rašyti programinį kodą naudojant iš ReactJS bibliotekos gerai pažįstamą JSX sintaksę:
+Ši biblioteka leidžia rašyti programinį kodą naudojant iš ReactJS bibliotekos gerai pažįstamą JSX\footnote{JavaScript sintaksės praplėtimas XML žymėjimo kalbos galimybėmis} sintaksę:
 
 \begin{center}
 \begin{small}
@@ -464,8 +446,8 @@ Rašto darbe pavyko įgyvendinti šiuos rezultatus, susijusius su tikslu ir išs
 \begin{itemize}
   \item Identifikuoti žiniatinklio naudotojų kiekio augimo mastai
   \item Pristatytos semantinės Saityno raidos versijos
-  \item Pristatytas bendras interneto naršyklių veikimo principas
-  \item Palyginti skirtingi kodo transliavimo metodai - interpretavimas ir kompiliavimas
+  \item Pristatytas bendras interneto naršyklių kodo vykdymo principas
+  \item Palyginti skirtingi programinio kodo transliavimo metodai - interpretavimas ir kompiliavimas
 \item Suformuluotas WebAssembly standarto apibrėžimas ir pristatyta šio mašininio formato kalbos statinė prigimtis
   \item Identifikuota WebAssembly kodą vykdančios virtualios mašinos specifika
   \item Darbe pristatyti du pagrindiniai WebAssembly panaudojimo scenarijai: centrinio greitaveikai imlios verslo logikos modulio pakeitimas WebAssembly modulio realizacija ir kitas - naujos klientinės programos kūrimas nuo pradžių pasitelkiant karkasus, sukurtus WebAssembly technologijos pagrindu
@@ -473,11 +455,14 @@ Rašto darbe pavyko įgyvendinti šiuos rezultatus, susijusius su tikslu ir išs
 \end{itemize}
 
  
-Taigi, iš pasiektų rezultatų galima teigti, jog Saityno ekosistema įgauna vis didesnę reikšmę, siejamą su interaktyvių programų sistemų naudojimu, todėl žiniatinklio technologijų poreikis ateityje tik didės. Atsižvelgiant į tai tampa aišku, jog pristatyta JavaScript kalbos fundamentinė prigimtis ir interneto naršyklėse vykdomi šios kalbos kodo optimizacijos procesai netenkina keliamų greitaveikos ir kodo vykdymo patikimumo reikalavimų, todėl galima teigti, jog apibrėžtas ir pademonstruotas WebAssembly standartų rinkinys pasirodė pačiu laiku, kaip tam tikras minėtų aplinkybių rezultatas, siekiantis perimti JavaScript kodo atsakomybės sritis, kurias ilgą laiką ši kalba buvo priversta prisiimti. Tokiu būdu Saityno technologijos nuo šiol geba išnaudoti tiek dinamiškos, tiek statiškos kodo prigimties privalumus. Autorius tikisi, jog šiuo rašto darbu buvo paneigtas dažnai sutinkamas WebAssembly technologijos mitas apie gresiantį JavaScript kalbos išnykimą. Pademonstruotas statinės kalbos kompiliavimo į WebAssembly modulį procesas tik patvirtino, jog technologija išgyvena pradines stadijas, nes patirta daug iššūkių integruojant kodą su JavaScript kalba, perduodant parametrus, importuojant modulį naršyklės aplinkoje. Šie sunkumai, autoriaus teigimu, lemia, jog iki šiol standartas gana nuvertinamas, retai sutinkamas mažesnės apimties interneto projektuose. Nepaisant to, faktas, jog realizaciją pavyko igyvendinti ir kodą iškviesti iš skirtingingų naršyklių nepalieka abejonių dėl WebAssembly panaudojamumo galimybių taikymo naudos jau šiomis dienomis.
+Taigi, iš pasiektų rezultatų galima teigti, jog Saityno ekosistema įgauna vis didesnę reikšmę, siejamą su interaktyvių programų sistemų naudojimu, todėl žiniatinklio technologijų poreikis ateityje tik didės. Atsižvelgiant į tai tampa aišku, jog pristatyta JavaScript kalbos fundamentinė prigimtis ir interneto naršyklėse vykdomi šios kalbos kodo optimizacijos procesai netenkina keliamų greitaveikos ir kodo vykdymo patikimumo reikalavimų, todėl galima teigti, jog apibrėžtas ir pademonstruotas WebAssembly standartų rinkinys pasirodė pačiu laiku, kaip tam tikras minėtų aplinkybių rezultatas, siekiantis perimti JavaScript kodo atsakomybės sritis, kurias ilgą laiką ši kalba buvo priversta prisiimti. Tokiu būdu Saityno technologijos nuo šiol geba išnaudoti tiek dinamiškos, tiek statiškos kodo prigimties privalumus. Autorius tikisi, jog šiuo rašto darbu buvo paneigtas dažnai sutinkamas WebAssembly technologijos mitas apie gresiantį JavaScript kalbos išnykimą. Pademonstruotas statinės kalbos kompiliavimo į WebAssembly modulį procesas tik patvirtino, jog technologija išgyvena pradines stadijas, nes patirta daug iššūkių integruojant kodą su JavaScript kalba, perduodant parametrus, importuojant modulį naršyklės aplinkoje. Šie sunkumai, autoriaus teigimu, lemia, jog iki šiol standartas gana nuvertinamas, retai sutinkamas mažesnės apimties interneto projektuose. Nepaisant to, faktas, jog realizaciją pavyko igyvendinti ir kodą iškviesti iš skirtingų naršyklių nepalieka abejonių dėl WebAssembly panaudojamumo galimybių taikymo naudos jau šiomis dienomis. Pristatyti nauji, WebAssembly technologijos pagrindu grįsti klientinių programų kūrimo karkasai, autoriaus nuomone, rodo ne tik su technologijos taikymu augančių kokybinių rodiklių kylimo tendenciją, tačiau, net svarbiau, kintantį programavimo žiniatinklyje požiūrį, kuris saityno technologijas ateityje atvers vis platesnei programuotojų bendruomenės daliai.
 %% PAKEISTAS PAVADINIMAS Į 'Šaltiniai'
 \addcontentsline{toc}{section}{Šaltiniai} 
 \printbibliography[heading=bibintoc, title=Šaltiniai]  % Šaltinių sąraše nurodoma panaudota
 \begin{thebibliography}{99}
+
+\bibitem[Abo17]{Abo17} 
+Mohammed Aboullaite. Understanding JIT compiler (just-in-time compiler), 2017. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/}
 
 \bibitem[ASM19]{ASM19} 
 asm-dom documentation. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https://mbasso.github.io/asm-dom/docs/inline-example.html}
@@ -522,6 +507,9 @@ Monica Raghuwanshi. How does web browsers work?, 2017. Žiūrėta [2019—06—0
 \bibitem[Sin12]{Sin12} 
 Mark Sinnathamby. Stack based vs Register based Virtual Machine Architecture, and the Dalvik VM, 2012. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https://markfaction.wordpress.com/2012/07/15/stack-based-vs-register-based-virtual-machine-architecture-and-the-dalvik-vm/}
 
+\bibitem[TEC19]{TEC19} 
+Software as a Service, Definition. 2019. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https://www.techopedia.com/definition/155/software-as-a-service-saas/}
+
 \bibitem[IWS19]{IWS19} 
 Internet Growth Statistics, Žiūrėta[2019—06—07]. Prieiga internetu: \url{https://www.internetworldstats.com/emarketing.htm/}
 
@@ -541,18 +529,13 @@ Pasaulinio žiniatinklio konsorciumo svetainė. Žiūrėta [2019—06—07]. Pri
 
 \sectionnonum{Sąvokų apibrėžimai}
 
-\textbf{Programa kaip paslauga (angl. Software as a Service)} - programinis produktas, nereikalaujantis, jog vartotojas jį įdiegtų į savo elektroninį įrenginį, dažniausiai veikiantis paskirstytuose dalykiniuose serveriuose, duomenų centruose, galintis vienu metu aptarnauti daug vartotojų.
+\textbf{Programa kaip paslauga (angl. Software as a Service)} - programinis produktas, nereikalaujantis, jog vartotojas jį įdiegtų į savo elektroninį įrenginį, dažniausiai veikiantis paskirstytuose dalykiniuose serveriuose, duomenų centruose, galintis vienu metu aptarnauti daug vartotojų \cite{TEC19}.
 
 \textbf{Naršyklės smėliadėžės aplinka (angl. browser sandbox environment)} - naršyklėse įdiegta, izoliuota JavaScript ir WebAssembly kodo vykdymo erdvė, ribojanti prieigą prie sisteminių resursų siekiant apsaugoti galutinį interneto naršyklės naudotoją.
 
 \textbf{Pasaulinio žiniatinklio konsorciumas (W3C)} - tarptautinis programinės įrangos kūrimo bendruomenės susivienijimas, kuriantis ir teikiantis standartus ir rekomendacijas žiniatinkliui. \cite{W3C19}
 
-\textbf{HTTP protokolas (angl. Hyper Text Transfer Protocol)}
+\textbf{Išankstinis kompiliavimas (angl. Ahead-Of-Time Compilation)} - kodo transliavimo į mašinines instrukcijas metodas, paplitęs tarp statinių programavimo kalbų, pasižymintis tuo, jog kodas išverčiamas į mašinines instrukcijas iš anksto, prieš vykdant programinį kodą. \cite{Abo17}
 
-\textbf{HTML kalba (angl. Hyper Text Markup Language)}
-
-\textbf{CSS kalba (angl. Cascading Style Sheets)}
-TODO
-
-
+\textbf{Kompiliavimas vykdymo metu (angl. Just-In-Time Compilation)} - dinaminis kodo transliavimo į mašinines instrukcijas metodas, kombinuojantis interpretavimo ir išankstinio kompiliavimo savybes. Vyksta kodo vykdymo metu, vertinama, ar kompiliuojamo kodo vykdymo nauda bus didesnė už kompiliavimo proceso laiko ir atminties kaštus \cite{Abo17}.
 \end{document}
