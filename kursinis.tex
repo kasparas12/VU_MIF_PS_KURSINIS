@@ -74,16 +74,16 @@ naujos kartos internetinių programų sistemų ir tradicinių, nuo vykdymo aplin
 sprendimų ir atverti saityne dar neišnaudotas rinkos perspektyvas, sėkmingai gyvuojančias
 tradicinėse platformose. 
 
-Darbo tikslas – identifikuoti skirtingus scenarijus, kaip standartas 
-gali būti integruotas į naujas ir jau egzistuojančias internetines programų sistemas. Kiekvienam scenarijui siekiama pagrįsti jo taikymo racionalumą ir palyginti jo esminius skirtumus su tradiciniu, iki šiol taikytu kūrimo požiūriu. 
+\textbf{Darbo tikslas} – identifikuoti skirtingus scenarijus, kaip standartas 
+gali būti integruotas į naujas ir jau egzistuojančias internetines programų sistemas. Kiekvienam scenarijui siekiama pagrįsti jo taikymo racionalumą ir palyginti jo esminius skirtumus su tradiciniu, iki šiol taikytu kūrimo požiūriu.
 
 Išsikelti pagrindiniai tarpiniai uždaviniai, padedantys atskleisti WebAssembly standarto esmę ir įgyvendinti užsibrėžtą tikslą:
 \begin{itemize}
-    \item Identifikuoti kintančią saityno naudojimo paskirtį
-    \item Apibrėžti interneto naršyklių programinio kodo vykdymo principus
-    \item Suvokti ir pristatyti WebAssembly technologijos veikimo logikos ypatybes
-    \item Išbandyti WebAssembly kodo generavimo ir vykdymo procesą, susipažinti su šiomis dienomis egzistuojančiais iššūkiais
-    \item Surasti ir aprašyti keletą skirtingų WebAssembly pritaikymo galimybių
+    \item \textbf{Identifikuoti kintančią saityno naudojimo paskirtį}
+    \item \textbf{Apibrėžti interneto naršyklių programinio kodo vykdymo principus}
+    \item \textbf{Išskirti WebAssembly technologijos veikimo logikos ypatybes} 
+    \item \textbf{Išbandyti WebAssembly kodo generavimo ir vykdymo procesą, susipažinti su šiomis dienomis egzistuojančiais iššūkiais}
+    \item \textbf{Surasti ir aprašyti keletą skirtingų WebAssembly pritaikymo galimybių}
 \end{itemize}
 
 \section{Žiniatinklio naudojimo paskirties raida}
@@ -441,21 +441,40 @@ Kuriant serverio pusės logiką ASP.NET technologine platforma nebuvo itin aktua
 \end{small}
 \end{center}
 Iš pavyzdžio matome, jog galime iškviesti C++ kodo funkcijas, jas įdėdami kaip JavaScript įvykius apdorojančius metodus. Šis virtualaus DOM medžio įrankis su tikruoju DOM medžiu bendrauja per JavaScript surišantįjį kodą, nes šio rašto darbo rašymo metu WebAssembly technologija vis dar nepalaiko tiesioginės komunikacijos su DOM medžio porgramine sąsaja.
-\sectionnonum{Rezultatai ir išvados}
-Rašto darbe pavyko įgyvendinti šiuos rezultatus, susijusius su tikslu ir išsikeltais darbo uždaviniais:
-\begin{itemize}
-  \item Identifikuoti žiniatinklio naudotojų kiekio augimo mastai
-  \item Pristatytos semantinės Saityno raidos versijos
-  \item Pristatytas bendras interneto naršyklių kodo vykdymo principas
-  \item Palyginti skirtingi programinio kodo transliavimo metodai - interpretavimas ir kompiliavimas
-\item Suformuluotas WebAssembly standarto apibrėžimas ir pristatyta šio mašininio formato kalbos statinė prigimtis
-  \item Identifikuota WebAssembly kodą vykdančios virtualios mašinos specifika
-  \item Darbe pristatyti du pagrindiniai WebAssembly panaudojimo scenarijai: centrinio greitaveikai imlios verslo logikos modulio pakeitimas WebAssembly modulio realizacija ir kitas - naujos klientinės programos kūrimas nuo pradžių pasitelkiant karkasus, sukurtus WebAssembly technologijos pagrindu
-  \item  Išbandytas C kalba parašytos burbulo metodo rikiavimo funckijos kompiliavimo į WebAssembly modulį procesas ir praktiškai išmokta iškviesti sukompiliuotą kodą iš naršyklės perduodant parametrus iš JavaScript aplinkos  į WebAssembly kodą
-\end{itemize}
 
- 
-Taigi, iš pasiektų rezultatų galima teigti, jog Saityno ekosistema įgauna vis didesnę reikšmę, siejamą su interaktyvių programų sistemų naudojimu, todėl žiniatinklio technologijų poreikis ateityje tik didės. Atsižvelgiant į tai tampa aišku, jog pristatyta JavaScript kalbos fundamentinė prigimtis ir interneto naršyklėse vykdomi šios kalbos kodo optimizacijos procesai netenkina keliamų greitaveikos ir kodo vykdymo patikimumo reikalavimų, todėl galima teigti, jog apibrėžtas ir pademonstruotas WebAssembly standartų rinkinys pasirodė pačiu laiku, kaip tam tikras minėtų aplinkybių rezultatas, siekiantis perimti JavaScript kodo atsakomybės sritis, kurias ilgą laiką ši kalba buvo priversta prisiimti. Tokiu būdu Saityno technologijos nuo šiol geba išnaudoti tiek dinamiškos, tiek statiškos kodo prigimties privalumus. Autorius tikisi, jog šiuo rašto darbu buvo paneigtas dažnai sutinkamas WebAssembly technologijos mitas apie gresiantį JavaScript kalbos išnykimą. Pademonstruotas statinės kalbos kompiliavimo į WebAssembly modulį procesas tik patvirtino, jog technologija išgyvena pradines stadijas, nes patirta daug iššūkių integruojant kodą su JavaScript kalba, perduodant parametrus, importuojant modulį naršyklės aplinkoje. Šie sunkumai, autoriaus teigimu, lemia, jog iki šiol standartas gana nuvertinamas, retai sutinkamas mažesnės apimties interneto projektuose. Nepaisant to, faktas, jog realizaciją pavyko igyvendinti ir kodą iškviesti iš skirtingų naršyklių nepalieka abejonių dėl WebAssembly panaudojamumo galimybių taikymo naudos jau šiomis dienomis. Pristatyti nauji, WebAssembly technologijos pagrindu grįsti klientinių programų kūrimo karkasai, autoriaus nuomone, rodo ne tik su technologijos taikymu augančių kokybinių rodiklių kylimo tendenciją, tačiau, net svarbiau, kintantį programavimo žiniatinklyje požiūrį, kuris saityno technologijas ateityje atvers vis platesnei programuotojų bendruomenės daliai.
+\begin{nopagebreak}
+\sectionnonum{Rezultatai}
+Rašto darbe pavyko įgyvendinti šiuos rezultatus, susijusius su tikslu ir išsikeltais darbo uždaviniais:
+\begin{enumerate}
+  \item Nustatyta saityno evoliucinė raida, rodanti augantį žiniatinklio technologijų taikymo poreikį
+  \begin{itemize}
+  \item identifikuoti žiniatinklio naudotojų kiekio augimo mastai
+  \item pristatytos semantinės Saityno raidos versijos
+  \end{itemize}
+    \item Pristatytas bendras interneto naršyklių JavaScript kodo vykdymo principas
+  \begin{itemize}
+  \item apibrėžta JavaScript kalbos specifika
+  \item palyginti skirtingi kodo transliavimo metodai - kompiliavimas ir interpretavimas
+  \item suformuluota bendra JavaScript variklio veikimo schema
+  \end{itemize}
+  \item Išskirti esminiai WebAssembly standarto aspektai
+  \begin{itemize}
+    \item akcentuota statinė, žemo lygmens kalbos specifika
+    \item nusakytos WebAssembly mašininio kodo formato ypatybės
+    \item identifikuota WebAssembly kodą vykdančios virtualios mašinos architektūrinė sudėtis
+    \end{itemize}
+  \item Išbandytas C kalba parašytos burbulo metodo rikiavimo funckijos kompiliavimo į WebAssembly modulį procesas ir praktiškai išmokta iškviesti sukompiliuotą kodą iš naršyklės perduodant parametrus iš JavaScript aplinkos  į WebAssembly modulį
+  \item Darbe pristatyti du pagrindiniai WebAssembly panaudojimo scenarijai
+\begin{itemize}
+  \item centrinio greitaveikai imlios verslo logikos modulio pakeitimas WebAssembly modulio realizacija
+  \item naujos klientinės programos kūrimas nuo pradžių pasitelkiant naujus karkasus, sukurtus WebAssembly technologijos pagrindu
+\end{itemize}
+\end{enumerate}
+
+\sectionnonum{Išvados}
+Iš pasiektų rezultatų galima teigti, jog Saityno ekosistema įgauna vis didesnę reikšmę, siejamą su interaktyvių programų sistemų naudojimu, todėl netolimoje ateityje turėtų būti matomas vis didesnis sistemų migravimas į debesų kompiuterijos erdvę. Atsižvelgiant į tai tampa aišku, jog pristatyta JavaScript kalbos fundamentinė prigimtis ir interneto naršyklėse vykdomi šios kalbos kodo optimizacijos procesai netenkina keliamų greitaveikos ir kodo vykdymo patikimumo reikalavimų, todėl galima teigti, jog apibrėžtas ir pademonstruotas WebAssembly standartų rinkinys pasirodė pačiu laiku, kaip tam tikras minėtų technologinių barjerų rezultatas, siekiantis perimti greitaveikai imlias JavaScript kodo atsakomybės sritis. Nors technologija išlieka pradiniuose kūrimo etapuose ir rašto darbo rengimo metu ganėtinai sunkiai integruojama, pritaikymo galimybės įrodo, jog netolimoje ateityje keisis ne tik kuriamų internetinių sistemų pobūdis, tačiau taip pat bus juntama ir esama tokių sistemų kūrimo suvokimo kaita.
+
+\end{nopagebreak}
 %% PAKEISTAS PAVADINIMAS Į 'Šaltiniai'
 \addcontentsline{toc}{section}{Šaltiniai} 
 \printbibliography[heading=bibintoc, title=Šaltiniai]  % Šaltinių sąraše nurodoma panaudota
@@ -477,7 +496,7 @@ Blazor documentation. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https
 Dan Callahan. Practical WebAssembly, 2017. Žiūrėta [2019—06—07]. Prieiga internetu: \url{http://2017.jsconfbp.com/speakers/dan-callahan/}
 
 \bibitem[Che18]{Che18} 
-Kevin Cheung. AutoCAD & WebAssembly: Moving a 30 Year Code Base to the Web. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https://www.infoq.com/presentations/autocad-webassembly/}
+Kevin Cheung. AutoCAD \& WebAssembly: Moving a 30 Year Code Base to the Web. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https://www.infoq.com/presentations/autocad-webassembly/}
 
 \bibitem[Cla17]{Cla17} 
 Lin Clark. A cartoon intro to WebAssembly, 2017. Žiūrėta [2019—06—07]. Prieiga internetu: \url{https://hacks.mozilla.org/2017/02/a—cartoon—intro—to—webassembly/}
